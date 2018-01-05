@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+/* 
+HomePage styling
+*/
+header{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+hr {
+  border-color: #fbbd08;
+  border-width: 3px;
+  max-width: 200px;
+}
+p { 
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+header {
+  position: relative;
+  width: 100%;
+  min-height: auto;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-image: url(https://unsplash.it/1400/795?image=329);
+  text-align: center;
+  color: white;
+  height: 100vh;
+}
+header .header-content {
+  position: relative;
+  text-align: center;
+  padding: 270px 15px 210px;
+  width: 100%;
+
+}
+header .header-content .header-content-inner h1 {
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 48px;
+  font-family: cursive;
+}
+header .header-content .header-content-inner hr {
+  margin: 25px auto;
+}
+header .header-content .header-content-inner p{
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 25px;
+  margin-bottom: 60px; 
+}
+
+/*
+RegisterPage component
+*/
+body > div,
+body > div > div,
+body > div > div > div.login-form {
+  height: 100%;
+}
