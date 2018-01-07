@@ -1,15 +1,50 @@
 import React, { Component } from 'react'
-import { Grid, GridColumn, Header, Form, Segment, Message } from 'semantic-ui-react'
+import { Grid, GridColumn, Header, Form, Segment, Message, Loader } from 'semantic-ui-react'
 import CustFormInput from '../common/Input'
 import CustButton from '../common/Button'
+import { loginUser } from '../../actions/loginAction'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
+import { ToastContainer } from 'react-toastify';
 
 class LoginPage extends Component {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            user: {
+                email: '',
+                password: ''
+            }
+        };
+        this.onInputChange = this.onInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    onInputChange(evt) {
+        evt.preventDefault();
+        let fields = this.state.user;
+        fields[evt.target.name] = evt.target.value;
+        this.setState(fields);
+    }
+    handleSubmit(evt) {
+        evt.preventDefault();
+
+        // method call to login a user
+        this.props.loginUser(this.state.user);
+
+        // set states to empty
+        this.setState({
+            user: {
+                email: '',
+                password: ''
+            }
+        });
+
     }
     render() {
+        let { email, password } = this.state;
         return (
             <div className='login-form'>
+            <ToastContainer />
                 <Grid
                     textAlign='center'
                     style={{ height: '100%' }}
@@ -19,9 +54,12 @@ class LoginPage extends Component {
                         <Header as='h2' textAlign='center'>
                             Sign into your Account
                         </Header>
-                        <Form size='huge'>
+                        <Form size='huge' onSubmit={this.handleSubmit}>
                             <Segment stacked>
                                 <CustFormInput
+                                    onChange={this.onInputChange}
+                                    name='email'
+                                    value={email}
                                     fluid={true}
                                     type='email'
                                     icon='mail'
@@ -30,6 +68,9 @@ class LoginPage extends Component {
 
                                 </CustFormInput>
                                 <CustFormInput
+                                    onChange={this.onInputChange}
+                                    name='password'
+                                    value={password}
                                     fluid={true}
                                     type='password'
                                     icon='lock'
@@ -37,7 +78,12 @@ class LoginPage extends Component {
                                     placeholder='Password'>
 
                                 </CustFormInput>
-                                <CustButton size='large' color='green' fluid={true} buttonName="Login" />
+                                
+                                {this.props.loading ?
+
+                                    <Loader active content='Loading' />
+                                    :
+                                    <CustButton size='large' color='green' fluid={true} buttonName="Login" />}
                             </Segment>
                         </Form>
                         <Message>
@@ -49,4 +95,18 @@ class LoginPage extends Component {
         );
     }
 }
-export default LoginPage;
+
+LoginPage.propTypes = {
+    loading: PropTypes.bool,
+    redirect: PropTypes.bool
+}
+
+function mapStateToProps(state, ownProps) {
+    // destructure loadingStatus object
+    let { loading, redirect } = state.login
+    return {
+        loading, redirect
+    }
+}
+
+export default connect(mapStateToProps, { loginUser })(LoginPage);

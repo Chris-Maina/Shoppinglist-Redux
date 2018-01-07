@@ -1,9 +1,11 @@
 import {combineReducers} from 'redux'
 import loadingStatus from './registerReducer'
+import login from './loginReducer'
 
 
 const rootReducer = combineReducers({
-    loadingStatus
+    loadingStatus,
+    login
 });
 
 export default rootReducer;
