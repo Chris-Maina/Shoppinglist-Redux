@@ -3,6 +3,7 @@ import { Route, Switch} from 'react-router-dom';
 import Home from './components/home/HomePage';
 import RegisterPage from './components/register/RegisterPage';
 import LoginPage from './components/login/LoginPage';
+import ShoppinglistPage from './components/shoppinglist/ShoppinglistPage';
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
         <Route exact={true} path="/" component={Home}/>
         <Route exact={true} path="/auth/register/" component={RegisterPage} />
         <Route exact={true} path="/auth/login/" component={LoginPage} />
+        <Route exact={true} path="/shoppinglist" component={ShoppinglistPage}/>
         </Switch>
       </div>
     );
