@@ -8,7 +8,7 @@ class CustomLists extends Component {
     }
     render() {
         return (
-            <Card>
+            <Card raised fluid>
                 <Card.Content >
                     <Card.Header>{this.props.header}</Card.Header>
                     <Card.Meta>{this.props.meta} </Card.Meta>
