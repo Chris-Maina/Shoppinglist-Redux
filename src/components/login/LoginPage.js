@@ -41,7 +41,7 @@ class LoginPage extends Component {
 
     }
     render() {
-        let { email, password } = this.state;
+        let { email, password } = this.state.user;
         return (
             <div className='login-form'>
             <ToastContainer />
