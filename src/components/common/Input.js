@@ -10,6 +10,7 @@ const CustFormInput = (props) => {
     type={props.type}
     fluid={props.fluid}
     icon={props.icon}
+    width={props.width}
     iconPosition={props.iconPosition}
     placeholder={props.placeholder}
     />
