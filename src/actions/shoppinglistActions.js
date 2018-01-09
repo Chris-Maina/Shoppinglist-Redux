@@ -66,13 +66,9 @@ export function getShoppinglist() {
                 // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
             toast.error(error.response.data.message);
-<<<<<<< HEAD
-=======
             if(error.response.status === 408){
                 return window.localStorage.removeItem('token');
             }
->>>>>>> [Feature #154081230] Add GET shopping list and  CREATE shoppinglist actions creators and thunks.
-
             // dispatch a get error
             dispatch(getshoppinglistFail(error))
             }

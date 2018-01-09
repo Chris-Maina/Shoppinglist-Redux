@@ -22,8 +22,6 @@ export default function shoppinglistReducer(state = initialState, action) {
                 loading: false,
                 redirect: false
             }
-<<<<<<< HEAD
-=======
         case actionTypes.TOGGLE_FORM_OPEN:
             return {
                 ...state,
@@ -34,7 +32,6 @@ export default function shoppinglistReducer(state = initialState, action) {
                 ...state,
                 isFormOpen: false
             }
->>>>>>> [feature #154081230] Add reducer function for shopping list actions.
         default:
             return state;
     }
