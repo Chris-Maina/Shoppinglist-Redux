@@ -30,7 +30,12 @@ class LoginPage extends Component {
 
         // method call to login a user
         this.props.loginUser(this.state.user);
-
+        setTimeout(() => {
+            // Redirect on successful log in
+            if (this.props.redirect) {
+                this.context.router.history.push('/shoppinglist');
+            }
+        }, 5000)
         // set states to empty
         this.setState({
             user: {
@@ -95,6 +100,10 @@ class LoginPage extends Component {
         );
     }
 }
+// Get the Router context so router is available on this.context.router.
+LoginPage.contextTypes = {
+    router: PropTypes.object
+};
 
 LoginPage.propTypes = {
     loading: PropTypes.bool,

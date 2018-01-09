@@ -1,4 +1,5 @@
 export default {
     loading: false,
-    redirect: false
+    redirect: false,
+    shoppinglists: {}
 }

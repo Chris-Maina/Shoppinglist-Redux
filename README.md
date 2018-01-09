@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/Chris-Maina/Shoppinglist-Redux.svg?branch=develop)](https://travis-ci.org/Chris-Maina/Shoppinglist-Redux)
+[![Coverage Status](https://coveralls.io/repos/github/Chris-Maina/Shoppinglist-Redux/badge.svg?branch=develop)](https://coveralls.io/github/Chris-Maina/Shoppinglist-Redux?branch=develop)
+
 ## Shoppinglist Redux Application
 
 This is a react application that consumes the [Shoppinglist-API](https://github.com/Chris-Maina/Shoppinglist-api)
