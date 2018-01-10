@@ -3,63 +3,28 @@ import CustHeader from '../common/CustHeader'
 import AnimatedButton from '../common/AnimatedButton'
 import CustButton from '../common/Button'
 import CustomLists from './CustLists'
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { Grid, Loader } from 'semantic-ui-react'
-import { connect } from 'react-redux';
-import { getShoppinglist } from '../../actions/shoppinglistActions'
-import { ToastContainer } from 'react-toastify';
-import PropTypes from 'prop-types';
-
-=======
-=======
->>>>>>> 4bca91c18f4762c4dda407539cc31c742edec5b5
 import { Grid, Loader, Card } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { getShoppinglist, formOpen, createShoppinglist } from '../../actions/shoppinglistActions'
 import { ToastContainer } from 'react-toastify';
 import PropTypes from 'prop-types';
 import ShoplistForm from './ShoppinglistForm'
-<<<<<<< HEAD
->>>>>>> [feature #154081230] Add shopping list page component.
-=======
->>>>>>> 4bca91c18f4762c4dda407539cc31c742edec5b5
 
 class ShoppinglistPage extends Component {
     constructor(props, context) {
         super(props, context);
-<<<<<<< HEAD
-<<<<<<< HEAD
-    }
-=======
-=======
->>>>>>> 4bca91c18f4762c4dda407539cc31c742edec5b5
         this.state = { shoppinglistName: '' }
         this.onPlusClick = this.onPlusClick.bind(this);
         this.onCreateSubmit = this.onCreateSubmit.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
     }
 
-<<<<<<< HEAD
->>>>>>> [feature #154081230] Add shopping list page component.
-=======
->>>>>>> 4bca91c18f4762c4dda407539cc31c742edec5b5
     componentWillMount() {
         // dispatch get shoppinglist request action
         this.props.getShoppinglist();
 
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-    render() {
-        if (!this.props.shoppinglists) {
-            return <Loader active content='Loading' />
 
-        }
-        console.log(this.props.shoppinglists)
-=======
-=======
->>>>>>> 4bca91c18f4762c4dda407539cc31c742edec5b5
     onCreateSubmit(evt) {
         evt.preventDefault();
         // method call to dispatch create a shoppinglist
@@ -82,11 +47,6 @@ class ShoppinglistPage extends Component {
         if (!this.props.shoppinglists) {
             return <Loader active content='Loading' />
         }
-
-<<<<<<< HEAD
->>>>>>> [feature #154081230] Add shopping list page component.
-=======
->>>>>>> 4bca91c18f4762c4dda407539cc31c742edec5b5
         return (
             <div>
                 { /**
