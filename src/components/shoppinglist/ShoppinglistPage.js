@@ -64,6 +64,13 @@ class ShoppinglistPage extends Component {
         this.props.formOpen();
         this.setState({ shoppinglistId, shoppinglistName });
     }
+    onDeleteClick = (oneshoppinglist) => {
+        // method call to dispatch delete request
+        this.props.deleteShoppinglist(oneshoppinglist, () => {
+            // method call to get all shoppinglist
+            this.props.getShoppinglist();
+        });
+    }
     render() {
         if (!this.props.shoppinglists) {
             return <Loader active content='Loading' />
@@ -135,8 +142,8 @@ class ShoppinglistPage extends Component {
                                     >
                                         <Grid.Column >
                                             <CustomLists
-                                                shopId={oneshoppinglist.id}
                                                 onEditClick={(e) => this.onEditClick(e, oneshoppinglist.id, oneshoppinglist.name)}
+                                                onDeleteClick={() => this.onDeleteClick(oneshoppinglist) }
                                                 oneshoppinglist={oneshoppinglist}
                                             />
                                         </Grid.Column>
