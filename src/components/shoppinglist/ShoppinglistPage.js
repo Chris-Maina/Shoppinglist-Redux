@@ -4,7 +4,7 @@ import AnimatedButton from '../common/AnimatedButton'
 import CustButton from '../common/Button'
 import CustomLists from './CustLists'
 import { Grid, Loader, Card } from 'semantic-ui-react'
-import { connect } from 'react-redux'; 
+import { connect } from 'react-redux';
 import * as shoppinglistActions from '../../actions/shoppinglistActions';
 import { ToastContainer } from 'react-toastify';
 import PropTypes from 'prop-types';
@@ -13,7 +13,7 @@ import ShoplistForm from './ShoppinglistForm'
 class ShoppinglistPage extends Component {
     constructor(props, context) {
         super(props, context);
-        this.state = { shoppinglistId: '',shoppinglistName: '' }
+        this.state = { shoppinglistId: '', shoppinglistName: '' }
     }
 
     componentWillMount() {
@@ -24,17 +24,27 @@ class ShoppinglistPage extends Component {
 
     onFormSubmit = evt => {
         evt.preventDefault();
+        if (this.state.shoppinglistId) {
+            // If an id is present its an update request
+            // method call to dispatch edit a shoppinglist
+            return this.props.editShoppinglist({ name: this.state.shoppinglistName, id: this.state.shoppinglistId }, () => {
+                this.props.getShoppinglist();
+            })
+
+        }
+        // Create request
         // method call to dispatch create a shoppinglist
-        this.props.createShoppinglist(this.state.shoppinglistName, () => {
+        return this.props.createShoppinglist(this.state.shoppinglistName, () => {
             this.props.getShoppinglist();
         });
+
     }
     onPlusClick = evt => {
         evt.preventDefault();
         // method call to dispatch form open action
         this.props.formOpen();
         // Set state of id empty.
-        this.setState({shoppinglistId: '',shoppinglistName: ''});
+        this.setState({ shoppinglistId: '', shoppinglistName: '' });
 
     }
     onInputChange = evt => {
@@ -47,17 +57,18 @@ class ShoppinglistPage extends Component {
         // method call to dispatch form close action
         this.props.formClose();
     }
-   
+
     onEditClick = (evt, shoppinglistId, shoppinglistName) => {
         evt.preventDefault();
-        this.props.editShoppinglistRequest();
-        this.setState({shoppinglistId, shoppinglistName});
+        // method call to dispatch form open action
+        this.props.formOpen();
+        this.setState({ shoppinglistId, shoppinglistName });
     }
     render() {
         if (!this.props.shoppinglists) {
             return <Loader active content='Loading' />
         }
-        
+
         return (
             <div>
                 { /**
@@ -82,10 +93,9 @@ class ShoppinglistPage extends Component {
                                     <Grid.Column textAlign="center">
                                         <ShoplistForm
                                             onSubmit={this.onFormSubmit}
-                                            onCancelClick= {this.onCancelClick}
-
+                                            onCancelClick={this.onCancelClick}
                                             name="shoppinglistname"
-                                            value={this.props.selectedList  ? this.props.selectedList[0].name: this.state.shoppinglistName}
+                                            value={this.state.shoppinglistName}
                                             onChange={this.onInputChange}
                                             width={14}
                                             type="text"
@@ -126,9 +136,9 @@ class ShoppinglistPage extends Component {
                                         <Grid.Column >
                                             <CustomLists
                                                 shopId={oneshoppinglist.id}
-                                                onEditClick={ (e)=> this.onEditClick(e,oneshoppinglist.id, oneshoppinglist.name)}
+                                                onEditClick={(e) => this.onEditClick(e, oneshoppinglist.id, oneshoppinglist.name)}
                                                 oneshoppinglist={oneshoppinglist}
-                                                />
+                                            />
                                         </Grid.Column>
 
                                     </Grid.Row>)}
