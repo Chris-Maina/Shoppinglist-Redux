@@ -24,31 +24,36 @@ export function createshoppinglistRequest() {
 export function editShoppinglistRequest() {
     return { type: types.EDIT_SHOPPINGLIST_REQUEST }
 }
-export function editShoppinglistSuccess(){
-    return { type: types.EDIT_SHOPPINGLIST_SUCCESS}
+export function editShoppinglistSuccess() {
+    return { type: types.EDIT_SHOPPINGLIST_SUCCESS }
+}
+export function editShoppinglistError() {
+    return { type: types.EDIT_SHOPPINGLIST_ERROR }
 }
 
-export function editShoppinglist(shoppinglist, callback){
-    return function (dispatch){
+export function editShoppinglist(shoppinglist, callback) {
+    return function (dispatch) {
         dispatch(editShoppinglistRequest());
         return axiosConfig.request({
             method: 'put',
-            url: '/shoppinglists/'+shoppinglist.id,
+            url: '/shoppinglists/' + shoppinglist.id,
             headers: {
                 'Authorization': 'Bearer ' + window.localStorage.getItem('token')
             },
-            data: {...shoppinglist}
-        }).then( response => {
+            data: { ...shoppinglist }
+        }).then(response => {
             toast.success("Shoppinglist edited to " + response.data.name);
             // dispatch success action
             dispatch(editShoppinglistSuccess());
             // get ALL shoppinglist
             callback();
-        }).catch( error => {
-            if(error.response){
-                 // The request was made and the server responded with a status code
+        }).catch(error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
                 // that falls out of the range of 2xx
-                toast.error(error.response.data.message)
+                toast.error(error.response.data.message);
+                // dispatch success action
+                dispatch(editShoppinglistError());
                 if (error.response.status === 408) {
                     return window.localStorage.removeItem('token');
                 }
