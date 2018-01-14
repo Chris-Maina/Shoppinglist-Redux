@@ -21,6 +21,7 @@ const CustomLists = props => {
                     iconName="edit"
                 />
                 <AnimatedButton
+                    onClick={props.onDeleteClick}
                     color='red'
                     size='tiny'
                     content="Delete"
