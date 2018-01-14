@@ -43,6 +43,8 @@ class ShoppinglistPage extends Component {
         evt.preventDefault();
         // method call to dispatch form open action
         this.props.formOpen();
+        // dispatch method to set editClicked to False
+        this.props.editClickOff()
         // Set state of id empty.
         this.setState({ shoppinglistId: '', shoppinglistName: '' });
 
@@ -62,6 +64,9 @@ class ShoppinglistPage extends Component {
         evt.preventDefault();
         // method call to dispatch form open action
         this.props.formOpen();
+        // dispatch method to set editClicked to True
+        this.props.editClickOn()
+
         this.setState({ shoppinglistId, shoppinglistName });
     }
     onDeleteClick = (oneshoppinglist) => {
@@ -107,6 +112,7 @@ class ShoppinglistPage extends Component {
                                             width={14}
                                             type="text"
                                             placeholder="Shoppinglist name"
+                                            isEditClicked={this.props.isEditClicked}
                                         />
                                     </Grid.Column>
                                     :
@@ -180,9 +186,9 @@ ShoppinglistPage.propTypes = {
 }
 function mapStateToProps(state, ownProps) {
     // destructure shoppinglist object
-    let { loading, redirect, shoppinglists, isFormOpen } = state.shoppinglist;
+    let { loading, redirect, shoppinglists, isFormOpen, isEditClicked } = state.shoppinglist;
     return {
-        loading, redirect, shoppinglists, isFormOpen
+        loading, redirect, shoppinglists, isFormOpen, isEditClicked
     };
 }
 export default connect(mapStateToProps, { ...shoppinglistActions })(ShoppinglistPage);
