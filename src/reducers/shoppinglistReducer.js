@@ -40,7 +40,6 @@ export default function shoppinglistReducer(state = initialState, action) {
         case actionTypes.EDIT_SHOPPINGLIST_REQUEST:
             return {
                 ...state,
-                selectedList: state.shoppinglists.filter( shoplist => shoplist.id === action.shoppinglistID),
                 isFormOpen: true
             }
         

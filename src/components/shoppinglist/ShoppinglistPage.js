@@ -50,12 +50,14 @@ class ShoppinglistPage extends Component {
    
     onEditClick = (evt, shoppinglistId, shoppinglistName) => {
         evt.preventDefault();
-        this.props.editShoppinglistRequest(shoppinglistId);
+        this.props.editShoppinglistRequest();
+        this.setState({shoppinglistId, shoppinglistName});
     }
     render() {
         if (!this.props.shoppinglists) {
             return <Loader active content='Loading' />
         }
+        
         return (
             <div>
                 { /**
@@ -157,14 +159,13 @@ ShoppinglistPage.propTypes = {
     loading: PropTypes.bool,
     redirect: PropTypes.bool,
     shoppinglist: PropTypes.object,
-    params: PropTypes.object,
-    selectedList: PropTypes.array
+    params: PropTypes.object
 }
 function mapStateToProps(state, ownProps) {
     // destructure shoppinglist object
-    let { loading, redirect, shoppinglists, isFormOpen, selectedList } = state.shoppinglist;
+    let { loading, redirect, shoppinglists, isFormOpen } = state.shoppinglist;
     return {
-        loading, redirect, shoppinglists, isFormOpen, selectedList
+        loading, redirect, shoppinglists, isFormOpen
     };
 }
 export default connect(mapStateToProps, { ...shoppinglistActions })(ShoppinglistPage);

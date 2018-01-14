@@ -21,8 +21,8 @@ export function formClose() {
 export function createshoppinglistRequest() {
     return { type: types.CREATE_SHOPPINGLIST_REQUEST }
 }
-export function editShoppinglistRequest(shoppinglistID) {
-    return { type: types.EDIT_SHOPPINGLIST_REQUEST, shoppinglistID }
+export function editShoppinglistRequest() {
+    return { type: types.EDIT_SHOPPINGLIST_REQUEST }
 }
 export function editShoppinglistSuccess(shoppinglist){
     return { type: types.EDIT_SHOPPINGLIST_SUCCESS, shoppinglist}
