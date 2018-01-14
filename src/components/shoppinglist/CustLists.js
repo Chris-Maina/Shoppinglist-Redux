@@ -7,12 +7,14 @@ const CustomLists = props => {
     return (
         <Card raised fluid>
             <Card.Content >
-                <Card.Header>{props.header}</Card.Header>
-                <Card.Meta>{props.meta} </Card.Meta>
-                <Card.Description>{props.description}</Card.Description>
+                <Card.Header>{props.oneshoppinglist.name}</Card.Header>
+                <Card.Meta content="shop with a smile"/> 
+                <Card.Description>{props.oneshoppinglist.date_created}</Card.Description>
             </Card.Content>
             <Card.Content extra>
                 <AnimatedButton
+                    onClick={props.onEditClick}
+                    shopId={props.shopId}
                     color='green'
                     size='tiny'
                     content="Edit"

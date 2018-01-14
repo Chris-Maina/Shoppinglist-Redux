@@ -27,10 +27,31 @@ export default function shoppinglistReducer(state = initialState, action) {
                 ...state,
                 isFormOpen: true
             }
+        case actionTypes.TOGGLE_FORM_CLOSE:
+            return {
+                ...state,
+                isFormOpen: false
+            }
         case actionTypes.CREATE_SHOPPINGLIST_REQUEST:
             return {
                 ...state,
                 isFormOpen: false
+            }
+        case actionTypes.EDIT_SHOPPINGLIST_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                isFormOpen: false
+            }
+        case actionTypes.EDIT_SHOPPINGLIST_SUCCESS:
+            return {
+                ...state,
+                loading: false
+            }
+        case actionTypes.EDIT_SHOPPINGLIST_ERROR:
+            return {
+                ...state,
+                loading: false
             }
         default:
             return state;
