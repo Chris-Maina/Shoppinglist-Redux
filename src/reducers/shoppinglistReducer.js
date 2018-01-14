@@ -48,6 +48,11 @@ export default function shoppinglistReducer(state = initialState, action) {
                 ...state,
                 loading: false
             }
+        case actionTypes.EDIT_SHOPPINGLIST_ERROR:
+            return {
+                ...state,
+                loading: false
+            }
         default:
             return state;
     }
