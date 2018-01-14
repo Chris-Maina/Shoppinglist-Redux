@@ -30,6 +30,47 @@ export function editShoppinglistSuccess() {
 export function editShoppinglistError() {
     return { type: types.EDIT_SHOPPINGLIST_ERROR }
 }
+export function deleteShoppinglistRequest() {
+    return { type: types.DELETE_SHOPPINGLIST_REQUEST }
+}
+export function deleteShoppinglistSuccess() {
+    return { type: types.DELETE_SHOPPINGLIST_SUCCESS }
+}
+export function deleteShoppinglistError() {
+    return { type: types.DELETE_SHOPPINGLIST_ERROR}
+}
+export function deleteShoppinglist(shoppinglist, callback){
+    return function (dispatch) {
+        // dispatch a delete request
+        dispatch(deleteShoppinglistRequest());
+        return axiosConfig.request({
+            method: 'delete',
+            url: '/shoppinglists/' + shoppinglist.id,
+            headers: {
+                'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+            },
+            data: { ...shoppinglist }
+        }).then( response => {
+            toast.success("Shoppinglist " + shoppinglist.name + " deleted.");
+            // dispatch delete success
+            dispatch(deleteShoppinglistSuccess());
+            // get ALL shoppinglist
+            callback();
+        }).catch( error => {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                toast.error(error.response.data.message);
+                // dispatch success action
+                dispatch(editShoppinglistError());
+                if (error.response.status === 408) {
+                    return window.localStorage.removeItem('token');
+                }
+            }
+        })
+    }
+
+}
 
 export function editShoppinglist(shoppinglist, callback) {
     return function (dispatch) {
@@ -110,6 +151,7 @@ export function getShoppinglist() {
                 // that falls out of the range of 2xx
                 toast.error(error.response.data.message);
                 if (error.response.status === 408) {
+                    toast.error(error.response.data.message);
                     return window.localStorage.removeItem('token');
                 }
                 // dispatch a get error
