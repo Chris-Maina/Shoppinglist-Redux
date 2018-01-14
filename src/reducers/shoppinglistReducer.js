@@ -40,9 +40,14 @@ export default function shoppinglistReducer(state = initialState, action) {
         case actionTypes.EDIT_SHOPPINGLIST_REQUEST:
             return {
                 ...state,
-                isFormOpen: true
+                loading: true,
+                isFormOpen: false
             }
-        
+        case actionTypes.EDIT_SHOPPINGLIST_SUCCESS:
+            return {
+                ...state,
+                loading: false
+            }
         default:
             return state;
     }
