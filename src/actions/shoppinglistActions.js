@@ -15,8 +15,31 @@ export function getshoppinglistFail(error) {
 export function formOpen() {
     return { type: types.TOGGLE_FORM_OPEN }
 }
+export function formClose() {
+    return { type: types.TOGGLE_FORM_CLOSE }
+}
 export function createshoppinglistRequest() {
     return { type: types.CREATE_SHOPPINGLIST_REQUEST }
+}
+export function editShoppinglistRequest(shoppinglistID) {
+    return { type: types.EDIT_SHOPPINGLIST_REQUEST, shoppinglistID }
+}
+export function editShoppinglistSuccess(shoppinglist){
+    return { type: types.EDIT_SHOPPINGLIST_SUCCESS, shoppinglist}
+}
+
+export function editShoppinglist(shoppinglist){
+    return function (dispatch){
+        
+        return axiosConfig.request({
+            method: 'put',
+            url: '/shoppinglists/'+shoppinglist.id,
+            headers: {
+                'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+            },
+            data: {  }
+        }).then().catch()
+    }
 }
 
 export function createShoppinglist(shoppinglistname, callback) {
