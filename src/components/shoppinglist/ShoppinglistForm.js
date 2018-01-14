@@ -1,23 +1,40 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { Form, Button } from 'semantic-ui-react'
-import CustFormInput from '../common/Input'
+import { connect } from 'react-redux'; 
+import CustFormInput from '../common/Input';
+import PropTypes from 'prop-types';
 
-const ShoppinglistForm = (props) => {
-    return (
-        <Form onSubmit={props.onSubmit}>
-            <Form.Group >
-                <CustFormInput
-                    width={props.width}
-                    type={props.type}
-                    placeholder={props.placeholder}
-                    name={props.name}
-                    value={props.value}
-                    onChange={props.onChange}
-                />
-                <Button size="large" color="blue" content={props.create_update_btn} />
-                <Button size="large" color="red" content={props.cancel_btn} />
-            </Form.Group>
-        </Form>
-    );
+class ShoppinglistForm extends Component{
+    constructor(props){
+        super(props);
+    }
+    render(){
+        const button_text_name = this.props.value ? 'Update' : 'Create'
+        return (
+            <Form onSubmit={this.props.onSubmit}>
+                <Form.Group >
+                    <CustFormInput
+                        width={this.props.width}
+                        type={this.props.type}
+                        placeholder={this.props.placeholder}
+                        name={this.props.name}
+                        value={this.props.value}
+                        onChange={this.props.onChange}
+                    />
+                    <Button size="large" color="blue" content={button_text_name} />
+                    <Button size="large" color="red" content="Cancel" onClick={this.props.onCancelClick}/>
+                </Form.Group>
+            </Form>
+        );
+    }
 }
-export default ShoppinglistForm;
+ShoppinglistForm.propTypes = {
+    params: PropTypes.object
+
+}
+function mapStateToProps(state, ownProps) {
+    return {
+        state: state
+    }
+}
+export default connect(mapStateToProps)(ShoppinglistForm);
