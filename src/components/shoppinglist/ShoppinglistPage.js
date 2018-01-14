@@ -4,8 +4,8 @@ import AnimatedButton from '../common/AnimatedButton'
 import CustButton from '../common/Button'
 import CustomLists from './CustLists'
 import { Grid, Loader, Card } from 'semantic-ui-react'
-import { connect } from 'react-redux';
-import { getShoppinglist, formOpen, createShoppinglist } from '../../actions/shoppinglistActions'
+import { connect } from 'react-redux'; 
+import * as shoppinglistActions from '../../actions/shoppinglistActions';
 import { ToastContainer } from 'react-toastify';
 import PropTypes from 'prop-types';
 import ShoplistForm from './ShoppinglistForm'
@@ -13,10 +13,7 @@ import ShoplistForm from './ShoppinglistForm'
 class ShoppinglistPage extends Component {
     constructor(props, context) {
         super(props, context);
-        this.state = { shoppinglistName: '' }
-        this.onPlusClick = this.onPlusClick.bind(this);
-        this.onCreateSubmit = this.onCreateSubmit.bind(this);
-        this.onInputChange = this.onInputChange.bind(this);
+        this.state = { shoppinglistId: '',shoppinglistName: '' }
     }
 
     componentWillMount() {
@@ -25,23 +22,35 @@ class ShoppinglistPage extends Component {
 
     }
 
-    onCreateSubmit(evt) {
+    onFormSubmit = evt => {
         evt.preventDefault();
         // method call to dispatch create a shoppinglist
-        this.props.createShoppinglist(this.state.shoppinglistName, () =>{
+        this.props.createShoppinglist(this.state.shoppinglistName, () => {
             this.props.getShoppinglist();
         });
     }
-    onPlusClick(evt) {
+    onPlusClick = evt => {
         evt.preventDefault();
         // method call to dispatch form open action
         this.props.formOpen();
+        // Set state of id empty.
+        this.setState({shoppinglistId: '',shoppinglistName: ''});
 
     }
-    onInputChange(evt) {
+    onInputChange = evt => {
         evt.preventDefault();
         this.setState({ shoppinglistName: evt.target.value });
 
+    }
+    onCancelClick = evt => {
+        evt.preventDefault();
+        // method call to dispatch form close action
+        this.props.formClose();
+    }
+   
+    onEditClick = (evt, shoppinglistId, shoppinglistName) => {
+        evt.preventDefault();
+        this.props.editShoppinglistRequest(shoppinglistId);
     }
     render() {
         if (!this.props.shoppinglists) {
@@ -70,15 +79,15 @@ class ShoppinglistPage extends Component {
                                 {this.props.isFormOpen ?
                                     <Grid.Column textAlign="center">
                                         <ShoplistForm
-                                            onSubmit={this.onCreateSubmit}
+                                            onSubmit={this.onFormSubmit}
+                                            onCancelClick= {this.onCancelClick}
+
                                             name="shoppinglistname"
-                                            value={this.state.shoppinglistName}
+                                            value={this.props.selectedList  ? this.props.selectedList[0].name: this.state.shoppinglistName}
                                             onChange={this.onInputChange}
                                             width={14}
                                             type="text"
                                             placeholder="Shoppinglist name"
-                                            create_update_btn="Create"
-                                            cancel_btn="Cancel"
                                         />
                                     </Grid.Column>
                                     :
@@ -100,9 +109,9 @@ class ShoppinglistPage extends Component {
                                 <Grid.Column >
                                     <Card raised fluid>
                                         <Card.Content >
-                                            <Card.Header content="Message"/>
+                                            <Card.Header content="Message" />
                                             <Card.Meta content="shop with a smile" />
-                                            <Card.Description content={this.props.shoppinglists}/>
+                                            <Card.Description content={this.props.shoppinglists} />
                                         </Card.Content >
                                     </Card>
                                 </Grid.Column>
@@ -114,9 +123,10 @@ class ShoppinglistPage extends Component {
                                     >
                                         <Grid.Column >
                                             <CustomLists
-                                                header={oneshoppinglist.name}
-                                                meta="shop with a smile"
-                                                description={"Created at " + oneshoppinglist.date_created} />
+                                                shopId={oneshoppinglist.id}
+                                                onEditClick={ (e)=> this.onEditClick(e,oneshoppinglist.id, oneshoppinglist.name)}
+                                                oneshoppinglist={oneshoppinglist}
+                                                />
                                         </Grid.Column>
 
                                     </Grid.Row>)}
@@ -146,13 +156,15 @@ ShoppinglistPage.propTypes = {
     isFormOpen: PropTypes.bool,
     loading: PropTypes.bool,
     redirect: PropTypes.bool,
-    shoppinglist: PropTypes.object
+    shoppinglist: PropTypes.object,
+    params: PropTypes.object,
+    selectedList: PropTypes.array
 }
 function mapStateToProps(state, ownProps) {
     // destructure shoppinglist object
-    let { loading, redirect, shoppinglists, isFormOpen } = state.shoppinglist;
+    let { loading, redirect, shoppinglists, isFormOpen, selectedList } = state.shoppinglist;
     return {
-        loading, redirect, shoppinglists, isFormOpen
+        loading, redirect, shoppinglists, isFormOpen, selectedList
     };
 }
-export default connect(mapStateToProps, { getShoppinglist, formOpen, createShoppinglist })(ShoppinglistPage);
+export default connect(mapStateToProps, { ...shoppinglistActions })(ShoppinglistPage);
