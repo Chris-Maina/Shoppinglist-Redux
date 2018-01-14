@@ -12,6 +12,12 @@ export function getshoppinglistSuccess(response) {
 export function getshoppinglistFail(error) {
     return { type: types.GET_SHOPPINGLIST_FAIL, error }
 }
+export function editClickOn(){
+    return { type: types.EDIT_CLICK_ON}
+}
+export function editClickOff(){
+    return { type: types.EDIT_CLICK_OFF}
+}
 export function formOpen() {
     return { type: types.TOGGLE_FORM_OPEN }
 }
