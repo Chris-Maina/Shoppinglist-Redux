@@ -4,5 +4,6 @@ export default {
     isFormOpen: false,
     selectedList: {},
     shoppinglists: {},
-    isEditClicked: false
+    isEditClicked: false,
+    shoppingitems: {}
 }
