@@ -53,6 +53,31 @@ export default function shoppinglistReducer(state = initialState, action) {
                 ...state,
                 loading: false
             }
+        case actionTypes.DELETE_SHOPPINGLIST_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.DELETE_SHOPPINGLIST_SUCCESS:
+            return {
+                ...state,
+                loading: false
+            }
+        case actionTypes.DELETE_SHOPPINGLIST_ERROR:
+            return {
+                ...state,
+                loading: false
+            }
+        case actionTypes.EDIT_CLICK_ON:
+            return {
+                ...state,
+                isEditClicked: true
+            }
+        case actionTypes.EDIT_CLICK_OFF:
+            return {
+                ...state,
+                isEditClicked: false
+            }
         default:
             return state;
     }

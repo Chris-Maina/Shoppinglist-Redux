@@ -43,6 +43,8 @@ class ShoppinglistPage extends Component {
         evt.preventDefault();
         // method call to dispatch form open action
         this.props.formOpen();
+        // dispatch method to set editClicked to False
+        this.props.editClickOff()
         // Set state of id empty.
         this.setState({ shoppinglistId: '', shoppinglistName: '' });
 
@@ -62,7 +64,17 @@ class ShoppinglistPage extends Component {
         evt.preventDefault();
         // method call to dispatch form open action
         this.props.formOpen();
+        // dispatch method to set editClicked to True
+        this.props.editClickOn()
+
         this.setState({ shoppinglistId, shoppinglistName });
+    }
+    onDeleteClick = (oneshoppinglist) => {
+        // method call to dispatch delete request
+        this.props.deleteShoppinglist(oneshoppinglist, () => {
+            // method call to get all shoppinglist
+            this.props.getShoppinglist();
+        });
     }
     render() {
         if (!this.props.shoppinglists) {
@@ -100,6 +112,7 @@ class ShoppinglistPage extends Component {
                                             width={14}
                                             type="text"
                                             placeholder="Shoppinglist name"
+                                            isEditClicked={this.props.isEditClicked}
                                         />
                                     </Grid.Column>
                                     :
@@ -135,8 +148,8 @@ class ShoppinglistPage extends Component {
                                     >
                                         <Grid.Column >
                                             <CustomLists
-                                                shopId={oneshoppinglist.id}
                                                 onEditClick={(e) => this.onEditClick(e, oneshoppinglist.id, oneshoppinglist.name)}
+                                                onDeleteClick={() => this.onDeleteClick(oneshoppinglist) }
                                                 oneshoppinglist={oneshoppinglist}
                                             />
                                         </Grid.Column>
@@ -173,9 +186,9 @@ ShoppinglistPage.propTypes = {
 }
 function mapStateToProps(state, ownProps) {
     // destructure shoppinglist object
-    let { loading, redirect, shoppinglists, isFormOpen } = state.shoppinglist;
+    let { loading, redirect, shoppinglists, isFormOpen, isEditClicked } = state.shoppinglist;
     return {
-        loading, redirect, shoppinglists, isFormOpen
+        loading, redirect, shoppinglists, isFormOpen, isEditClicked
     };
 }
 export default connect(mapStateToProps, { ...shoppinglistActions })(ShoppinglistPage);

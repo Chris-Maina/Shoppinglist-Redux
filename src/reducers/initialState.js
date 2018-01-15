@@ -3,5 +3,6 @@ export default {
     redirect: false,
     isFormOpen: false,
     selectedList: {},
-    shoppinglists: {}
+    shoppinglists: {},
+    isEditClicked: false
 }

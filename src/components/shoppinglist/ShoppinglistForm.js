@@ -3,8 +3,9 @@ import { Form, Button } from 'semantic-ui-react'
 
 import CustFormInput from '../common/Input';
 
-const ShoppinglistForm = (props)=> {
-        const button_text_name = props.value ? 'Update' : 'Create'
+
+const ShoppinglistForm = props => {
+        let button_text_name = props.isEditClicked ? 'Update' : 'Create';
         return (
             <Form onSubmit={props.onSubmit}>
                 <Form.Group >
