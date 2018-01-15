@@ -5,6 +5,7 @@ import RegisterPage from './components/register/RegisterPage';
 import LoginPage from './components/login/LoginPage';
 import ShoppinglistPage from './components/shoppinglist/ShoppinglistPage';
 import ShoppinglistForm from './components/shoppinglist/ShoppinglistForm';
+import ShoppingItemsPage from './components/shoppingitems/ShoppingItemsPage';
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
         <Route exact={true} path="/auth/login/" component={LoginPage} />
         <Route exact={true} path="/shoppinglist" component={ShoppinglistPage}/>
         <Route exact={true} path={`/shoppinglist/:id`} component={ShoppinglistForm}/>
+        <Route exact={true} path="/shoppinglist/:id/items" component={ShoppingItemsPage}/>
         </Switch>
       </div>
     );
