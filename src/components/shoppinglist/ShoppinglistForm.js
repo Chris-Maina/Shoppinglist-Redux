@@ -1,6 +1,5 @@
 import React from 'react'
 import { Form, Button } from 'semantic-ui-react'
-
 import CustFormInput from '../common/Input';
 
 
