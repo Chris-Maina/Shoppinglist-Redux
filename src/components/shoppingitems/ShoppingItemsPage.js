@@ -1,19 +1,49 @@
 import React, { Component } from 'react';
-import { Table, Loader, Grid, Card } from 'semantic-ui-react';
+import { Table, Loader, Grid, Card, Segment } from 'semantic-ui-react';
 import { ToastContainer } from 'react-toastify';
 import CustButton from './../common/Button';
 import CustHeader from './../common/CustHeader'
 import * as shoppingItemActions from './../../actions/shoppingitemActions'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ShoppingItemForm from './ShoppingItemForm';
 
 class ShoppingItemsPage extends Component {
     constructor(props, context) {
-        super(props, context)
+        super(props, context);
+        this.state = {
+            item: {
+                id: '',
+                shoppingitemname: '',
+                price: '',
+                quantity: ''
+            }
+        }
     }
     componentWillMount() {
         // console.log(this.props.match.params.id)
         this.props.getShoppingitems(this.props.match.params.id)
+    }
+    onPlusClick = () => {
+        // dispatch an action to open the form
+        this.props.formOpen();
+    }
+    onCancelClick = () => {
+        // dispatch an action to close the form
+        this.props.formClose();
+    }
+    onInputChange = (evt) => {
+        evt.preventDefault();
+        let itemfilled = this.state.item;
+        itemfilled[evt.target.name]= evt.target.value;
+        this.setState(itemfilled);
+    }
+    onFormSubmit = (evt) =>{
+        evt.preventDefault()
+        // method call to dispatch create a shoppinglist
+        return this.props.createShoppinglist(this.state.shoppinglistName, () => {
+            this.props.getShoppinglist();
+        });
     }
     render() {
         if (!this.props.shoppingitems) {
@@ -37,6 +67,26 @@ class ShoppingItemsPage extends Component {
                                 <CustHeader
                                     header="Shoppingitems"
                                 />
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column>
+                                {this.props.isFormOpen ?
+                                    <Segment >
+                                        <ShoppingItemForm
+                                            onSubmit={this.onFormSubmit}
+                                            width={12}
+                                            item={this.state.item}
+                                            onChange={this.onInputChange}
+                                            onCancelClick={this.onCancelClick} />
+                                    </Segment>
+                                    :
+                                    <CustButton
+                                        size="massive"
+                                        color="blue"
+                                        icon="plus"
+                                        onClick={this.onPlusClick}
+                                        circular />}
                             </Grid.Column>
                         </Grid.Row>
                         {typeof (this.props.shoppingitems) === 'string' ?
@@ -64,7 +114,7 @@ class ShoppingItemsPage extends Component {
                                             </Table.Row>
                                         </Table.Header>
                                         <Table.Body>
-                                            {this.props.shoppingitems.map( oneshoppingitem => 
+                                            {this.props.shoppingitems.map(oneshoppingitem =>
                                                 <Table.Row
                                                     key={oneshoppingitem.id}>
                                                     <Table.Cell>{oneshoppingitem.name}</Table.Cell>
@@ -107,9 +157,9 @@ ShoppingItemsPage.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
-    let { shoppingitems, loading } = state.shoppingitem
+    let { shoppingitems, loading, isFormOpen } = state.shoppingitem
     return {
-        loading, shoppingitems
+        loading, shoppingitems, isFormOpen
     }
 }
 
