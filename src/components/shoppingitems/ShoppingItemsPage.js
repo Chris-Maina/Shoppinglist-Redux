@@ -14,7 +14,7 @@ class ShoppingItemsPage extends Component {
         this.state = {
             item: {
                 id: '',
-                shoppingitemname: '',
+                name: '',
                 price: '',
                 quantity: ''
             }
@@ -28,7 +28,8 @@ class ShoppingItemsPage extends Component {
         // dispatch an action to open the form
         this.props.formOpen();
     }
-    onCancelClick = () => {
+    onCancelClick = (evt) => {
+        evt.preventDefault();
         // dispatch an action to close the form
         this.props.formClose();
     }
@@ -40,10 +41,18 @@ class ShoppingItemsPage extends Component {
     }
     onFormSubmit = (evt) =>{
         evt.preventDefault()
-        // method call to dispatch create a shoppinglist
-        return this.props.createShoppinglist(this.state.shoppinglistName, () => {
-            this.props.getShoppinglist();
+        // method call to dispatch create a shopping items
+        return this.props.createShoppingItem(this.state.item, this.props.match.params.id, ()=>{
+            this.props.getShoppingitems(this.props.match.params.id)
         });
+    }
+    onEditClick = (evt, item)=>{
+        evt.preventDefault();
+        // method call to dispatch form open action
+        this.props.formOpen();
+        // dispatch method to set editClicked to True
+        this.props.editClickOn()
+        this.setState({item: item})
     }
     render() {
         if (!this.props.shoppingitems) {
@@ -78,7 +87,8 @@ class ShoppingItemsPage extends Component {
                                             width={12}
                                             item={this.state.item}
                                             onChange={this.onInputChange}
-                                            onCancelClick={this.onCancelClick} />
+                                            onCancelClick={this.onCancelClick}
+                                            isEditClicked={this.props.isEditClicked} />
                                     </Segment>
                                     :
                                     <CustButton
@@ -125,6 +135,7 @@ class ShoppingItemsPage extends Component {
                                                             size="tiny"
                                                             color="green"
                                                             icon="edit"
+                                                            onClick={ (evt)=> this.onEditClick(evt, oneshoppingitem)}
                                                             circular
                                                         />
                                                     </Table.Cell>
@@ -157,9 +168,9 @@ ShoppingItemsPage.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
-    let { shoppingitems, loading, isFormOpen } = state.shoppingitem
+    let { shoppingitems, loading, isFormOpen, isEditClicked } = state.shoppingitem
     return {
-        loading, shoppingitems, isFormOpen
+        loading, shoppingitems, isFormOpen, isEditClicked
     }
 }
 
