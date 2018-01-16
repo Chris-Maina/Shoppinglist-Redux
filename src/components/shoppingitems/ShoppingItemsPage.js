@@ -27,6 +27,8 @@ class ShoppingItemsPage extends Component {
     onPlusClick = () => {
         // dispatch an action to open the form
         this.props.formOpen();
+        // set state to empty
+        this.setState({ item: {id: '',name: '',price: '',quantity: ''}  })
     }
     onCancelClick = (evt) => {
         evt.preventDefault();
