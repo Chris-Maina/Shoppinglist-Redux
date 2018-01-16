@@ -8,7 +8,8 @@ const CustButton = (props) =>{
         size={props.size} 
         color={props.color}
         icon={props.icon}
-        circular={props.circular}        
+        circular={props.circular}
+        onClick={props.onClick}        
         >{props.buttonName}</Button>
     );
 }
