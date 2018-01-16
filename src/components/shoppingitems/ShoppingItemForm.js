@@ -12,8 +12,8 @@ const ShoppingItemForm = props => {
                         width={props.width}
                         type="text"
                         placeholder="Shopping item name"
-                        name="shoppingitemname"
-                        value={props.item.shoppingitemname}
+                        name="name"
+                        value={props.item.name}
                         onChange={props.onChange}
                     />
                     <CustFormInput
