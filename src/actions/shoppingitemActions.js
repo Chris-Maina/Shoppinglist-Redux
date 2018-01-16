@@ -38,3 +38,9 @@ export function getShoppingitems(id){
         })
     }
 }
+export function formOpen() {
+    return { type: types.TOGGLE_FORM_OPEN }
+}
+export function formClose() {
+    return { type: types.TOGGLE_FORM_CLOSE }
+}
