@@ -72,6 +72,9 @@ class ShoppingItemsPage extends Component {
     }
     onDeleteClick(item){
         // method call to delete an item
+        this.props.deleteShoppingItem(item, this.props.match.params.id, ()=>{
+            this.props.getShoppingitems(this.props.match.params.id)
+        })
     }
     render() {
         if (!this.props.shoppingitems) {
