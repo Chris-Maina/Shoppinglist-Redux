@@ -50,6 +50,36 @@ export default function shoppingItemReducer(state = initialState, action) {
                 ...state,
                 isEditClicked: false
             }
+        case actionTypes.EDIT_SHOPPINGITEM_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.EDIT_SHOPPINGITEM_SUCCESS:
+            return {
+                ...state,
+                loading: false
+            }
+        case actionTypes.EDIT_SHOPPINGITEM_ERROR:
+            return {
+                ...state,
+                loading: false
+            }
+        case actionTypes.DELETE_SHOPPINGITEM_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.DELETE_SHOPPINGITEM_SUCCESS:
+            return {
+                ...state,
+                loading: false
+            }
+        case actionTypes.DELETE_SHOPPINGITEM_ERROR:
+            return {
+                ...state,
+                loading: false
+            }
         default:
             return state
     }

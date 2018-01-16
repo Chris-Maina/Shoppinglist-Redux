@@ -19,6 +19,8 @@ class ShoppingItemsPage extends Component {
                 quantity: ''
             }
         }
+        /** Try assigning the state to a variable and use it everywhere else*/
+        // let shoppinglistId = this.props.match.params.id
     }
     componentWillMount() {
         // console.log(this.props.match.params.id)
@@ -44,11 +46,20 @@ class ShoppingItemsPage extends Component {
         this.setState(itemfilled);
     }
     onFormSubmit = (evt) =>{
-        evt.preventDefault()
+        evt.preventDefault();
+        // Check if id is present in state. If true its a call to edit/update else create
+        if(this.state.item.id){
+            return this.props.editShoppingItem(this.state.item, this.props.match.params.id, ()=>{
+                // get all shopping items
+                this.props.getShoppingitems(this.props.match.params.id);
+            })
+        }
         // method call to dispatch create a shopping items
         return this.props.createShoppingItem(this.state.item, this.props.match.params.id, ()=>{
             this.props.getShoppingitems(this.props.match.params.id)
         });
+
+        /**  try set state of item to empty here */
     }
     onEditClick = (evt, item)=>{
         evt.preventDefault();
@@ -56,7 +67,11 @@ class ShoppingItemsPage extends Component {
         this.props.formOpen();
         // dispatch method to set editClicked to True
         this.props.editClickOn()
+        // set state to item clicked
         this.setState({item: item})
+    }
+    onDeleteClick(item){
+        // method call to delete an item
     }
     render() {
         if (!this.props.shoppingitems) {
@@ -148,6 +163,7 @@ class ShoppingItemsPage extends Component {
                                                             size="tiny"
                                                             color="red"
                                                             icon="trash"
+                                                            onClick={ () => this.onDeleteClick(oneshoppingitem)}
                                                             circular
                                                         />
                                                     </Table.Cell>
