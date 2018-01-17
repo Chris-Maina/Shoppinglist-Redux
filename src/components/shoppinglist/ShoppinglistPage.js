@@ -9,6 +9,7 @@ import * as shoppinglistActions from '../../actions/shoppinglistActions';
 import { ToastContainer } from 'react-toastify';
 import PropTypes from 'prop-types';
 import ShoplistForm from './ShoppinglistForm'
+import NavigationBar from '../common/NavigationBar';
 
 class ShoppinglistPage extends Component {
     constructor(props, context) {
@@ -98,6 +99,7 @@ class ShoppinglistPage extends Component {
                                     <CustHeader
                                         header="Shoppinglist"
                                     />
+                                    <NavigationBar/> }
                                 </Grid.Column>
                             </Grid.Row>
                             <Grid.Row>
