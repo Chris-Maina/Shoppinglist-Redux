@@ -85,6 +85,22 @@ export default function shoppingItemReducer(state = initialState, action) {
                 ...state,
                 loading: false
             }
+        case actionTypes.GET_SINGLE_SHOPPINGLIST_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.GET_SINGLE_SHOPPINGLIST_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                singleShoppinglist: action.response.data
+            }
+        case actionTypes.GET_SINGLE_SHOPPINGLIST_ERROR:
+            return {
+                ...state,
+                loading: false
+            }
         default:
             return state
     }
