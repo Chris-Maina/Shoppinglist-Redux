@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Loader, Grid, Card, Segment } from 'semantic-ui-react';
+import { Table, Loader, Grid, Card, Segment, Header } from 'semantic-ui-react';
 import { ToastContainer } from 'react-toastify';
 import CustButton from './../common/Button';
 import CustHeader from './../common/CustHeader'
@@ -22,6 +22,8 @@ class ShoppingItemsPage extends Component {
     }
     componentWillMount() {
         this.props.getShoppingitems(this.props.match.params.id)
+        // get the shoppinglist it belongs to
+        this.props.getSingleShoppinglist(this.props.match.params.id)
     }
     onPlusClick = () => {
         // dispatch an action to open the form
@@ -29,7 +31,7 @@ class ShoppingItemsPage extends Component {
         // dispatch method to set editClicked to False
         this.props.editClickOff()
         // set state to empty
-        this.setState({ item: {id: '',name: '',price: '',quantity: ''}  })
+        this.setState({ item: { id: '', name: '', price: '', quantity: '' } })
     }
     onCancelClick = (evt) => {
         evt.preventDefault();
@@ -39,28 +41,28 @@ class ShoppingItemsPage extends Component {
     onInputChange = (evt) => {
         evt.preventDefault();
         let itemfilled = this.state.item;
-        itemfilled[evt.target.name]= evt.target.value;
+        itemfilled[evt.target.name] = evt.target.value;
         this.setState(itemfilled);
     }
-    onFormSubmit = (evt) =>{
+    onFormSubmit = (evt) => {
         evt.preventDefault();
         // Check if id is present in state. If true its a call to edit/update else create
-        if(this.state.item.id){
+        if (this.state.item.id) {
             return this.props.editShoppingItem(this.state.item, this.props.match.params.id)
         }
         // method call to dispatch create a shopping items
         return this.props.createShoppingItem(this.state.item, this.props.match.params.id);
     }
-    onEditClick = (evt, item)=>{
+    onEditClick = (evt, item) => {
         evt.preventDefault();
         // method call to dispatch form open action
         this.props.formOpen();
         // dispatch method to set editClicked to True
         this.props.editClickOn()
         // set state to item clicked
-        this.setState({item: item})
+        this.setState({ item: item })
     }
-    onDeleteClick(item){
+    onDeleteClick(item) {
         // method call to delete an item
         this.props.deleteShoppingItem(item, this.props.match.params.id)
     }
@@ -101,13 +103,19 @@ class ShoppingItemsPage extends Component {
                                             isEditClicked={this.props.isEditClicked} />
                                     </Segment>
                                     :
+                                    <div>
+                                    <Header as='h2' inverted color='yellow' floated="left">
+                                        {this.props.singleShoppinglist ? this.props.singleShoppinglist.name: 'Shoppinglist name' }
+                                    </Header>
                                     <CustButton
                                         size="massive"
                                         color="blue"
                                         icon="plus"
                                         floated="right"
                                         onClick={this.onPlusClick}
-                                        circular />}
+                                        circular />
+                                        </div>
+                                    }
                             </Grid.Column>
                         </Grid.Row>
                         {typeof (this.props.shoppingitems) === 'string' ?
@@ -146,7 +154,7 @@ class ShoppingItemsPage extends Component {
                                                             size="tiny"
                                                             color="green"
                                                             icon="edit"
-                                                            onClick={ (evt)=> this.onEditClick(evt,oneshoppingitem)}
+                                                            onClick={(evt) => this.onEditClick(evt, oneshoppingitem)}
                                                             circular
                                                         />
                                                     </Table.Cell>
@@ -155,7 +163,7 @@ class ShoppingItemsPage extends Component {
                                                             size="tiny"
                                                             color="red"
                                                             icon="trash"
-                                                            onClick={ () => this.onDeleteClick(oneshoppingitem)}
+                                                            onClick={() => this.onDeleteClick(oneshoppingitem)}
                                                             circular
                                                         />
                                                     </Table.Cell>
@@ -180,9 +188,9 @@ ShoppingItemsPage.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
-    let { shoppingitems, loading, isFormOpen, isEditClicked } = state.shoppingitem
+    let { shoppingitems, loading, isFormOpen, isEditClicked, singleShoppinglist } = state.shoppingitem
     return {
-        loading, shoppingitems, isFormOpen, isEditClicked
+        loading, shoppingitems, isFormOpen, isEditClicked, singleShoppinglist
     }
 }
 
