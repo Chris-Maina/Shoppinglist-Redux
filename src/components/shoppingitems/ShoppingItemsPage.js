@@ -157,7 +157,7 @@ class ShoppingItemsPage extends Component {
                                                             size="tiny"
                                                             color="green"
                                                             icon="edit"
-                                                            onClick={ (evt)=> this.onEditClick(evt, oneshoppingitem)}
+                                                            onClick={ (evt)=> this.onEditClick(evt,oneshoppingitem)}
                                                             circular
                                                         />
                                                     </Table.Cell>
