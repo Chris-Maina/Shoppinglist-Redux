@@ -14,6 +14,11 @@ export default function shoppingItemReducer(state = initialState, action) {
                 loading: false,
                 shoppingitems: action.response.data.shopping_items
             }
+        case actionTypes.GET_SHOPPINGITEMS_ERROR:
+            return {
+                ...state,
+                loading: false
+            }
         case actionTypes.TOGGLE_FORM_OPEN:
             return {
                 ...state,
