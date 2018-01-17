@@ -35,7 +35,17 @@ export default function shoppinglistReducer(state = initialState, action) {
         case actionTypes.CREATE_SHOPPINGLIST_REQUEST:
             return {
                 ...state,
-                isFormOpen: false
+                loading: false
+            }
+        case actionTypes.CREATE_SHOPPINGLIST_SUCCESS:
+            return {
+                ...state,
+                loading: false
+            }
+        case actionTypes.CREATE_SHOPPINGLIST_ERROR:
+            return {
+                ...state,
+                loading: false
             }
         case actionTypes.EDIT_SHOPPINGLIST_REQUEST:
             return {
