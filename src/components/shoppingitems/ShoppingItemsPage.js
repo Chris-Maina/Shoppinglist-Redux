@@ -19,11 +19,8 @@ class ShoppingItemsPage extends Component {
                 quantity: ''
             }
         }
-        /** Try assigning the state to a variable and use it everywhere else*/
-        // let shoppinglistId = this.props.match.params.id
     }
     componentWillMount() {
-        // console.log(this.props.match.params.id)
         this.props.getShoppingitems(this.props.match.params.id)
     }
     onPlusClick = () => {
@@ -49,17 +46,10 @@ class ShoppingItemsPage extends Component {
         evt.preventDefault();
         // Check if id is present in state. If true its a call to edit/update else create
         if(this.state.item.id){
-            return this.props.editShoppingItem(this.state.item, this.props.match.params.id, ()=>{
-                // get all shopping items
-                this.props.getShoppingitems(this.props.match.params.id);
-            })
+            return this.props.editShoppingItem(this.state.item, this.props.match.params.id)
         }
         // method call to dispatch create a shopping items
-        return this.props.createShoppingItem(this.state.item, this.props.match.params.id, ()=>{
-            this.props.getShoppingitems(this.props.match.params.id)
-        });
-
-        /**  try set state of item to empty here */
+        return this.props.createShoppingItem(this.state.item, this.props.match.params.id);
     }
     onEditClick = (evt, item)=>{
         evt.preventDefault();
@@ -72,9 +62,7 @@ class ShoppingItemsPage extends Component {
     }
     onDeleteClick(item){
         // method call to delete an item
-        this.props.deleteShoppingItem(item, this.props.match.params.id, ()=>{
-            this.props.getShoppingitems(this.props.match.params.id)
-        })
+        this.props.deleteShoppingItem(item, this.props.match.params.id)
     }
     render() {
         if (!this.props.shoppingitems) {
@@ -117,6 +105,7 @@ class ShoppingItemsPage extends Component {
                                         size="massive"
                                         color="blue"
                                         icon="plus"
+                                        floated="right"
                                         onClick={this.onPlusClick}
                                         circular />}
                             </Grid.Column>
