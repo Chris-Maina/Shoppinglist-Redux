@@ -14,6 +14,11 @@ export default function shoppingItemReducer(state = initialState, action) {
                 loading: false,
                 shoppingitems: action.response.data.shopping_items
             }
+        case actionTypes.GET_SHOPPINGITEMS_ERROR:
+            return {
+                ...state,
+                loading: false
+            }
         case actionTypes.TOGGLE_FORM_OPEN:
             return {
                 ...state,
@@ -49,6 +54,52 @@ export default function shoppingItemReducer(state = initialState, action) {
             return {
                 ...state,
                 isEditClicked: false
+            }
+        case actionTypes.EDIT_SHOPPINGITEM_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.EDIT_SHOPPINGITEM_SUCCESS:
+            return {
+                ...state,
+                loading: false
+            }
+        case actionTypes.EDIT_SHOPPINGITEM_ERROR:
+            return {
+                ...state,
+                loading: false
+            }
+        case actionTypes.DELETE_SHOPPINGITEM_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.DELETE_SHOPPINGITEM_SUCCESS:
+            return {
+                ...state,
+                loading: false
+            }
+        case actionTypes.DELETE_SHOPPINGITEM_ERROR:
+            return {
+                ...state,
+                loading: false
+            }
+        case actionTypes.GET_SINGLE_SHOPPINGLIST_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.GET_SINGLE_SHOPPINGLIST_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                singleShoppinglist: action.response.data
+            }
+        case actionTypes.GET_SINGLE_SHOPPINGLIST_ERROR:
+            return {
+                ...state,
+                loading: false
             }
         default:
             return state

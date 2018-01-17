@@ -5,5 +5,6 @@ export default {
     selectedList: {},
     shoppinglists: {},
     isEditClicked: false,
-    shoppingitems: {}
+    shoppingitems: {},
+    singleShoppinglist: {}
 }
