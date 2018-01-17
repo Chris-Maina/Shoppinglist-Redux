@@ -169,3 +169,36 @@ export function deleteShoppingItem(item, shoppinglistId, callback) {
         })
     }
 }
+
+export function getSingleShoppinglistRequest() {
+    return { type: types.GET_SINGLE_SHOPPINGLIST_REQUEST }
+}
+export function getSingleShoppinglistSuccess(response) {
+    return { type: types.GET_SINGLE_SHOPPINGLIST_SUCCESS, response }
+}
+export function getSingleShoppinglistError() {
+    return { type: types.GET_SINGLE_SHOPPINGLIST_ERROR }
+}
+export function getSingleShoppinglist(shoppinglistId) {
+    return function (dispatch) {
+        // dispatch a get request
+        dispatch(getSingleShoppinglistRequest())
+        return axiosConfig.request({
+            method: 'get',
+            url: `/shoppinglists/${shoppinglistId}`,
+            headers: {
+                'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+            }
+        }).then(response => {
+            // dispatch a get success
+            dispatch(getSingleShoppinglistSuccess(response))
+        }).catch(error => {
+            // dispatch an error action
+            dispatch(getSingleShoppinglistError())
+            if (error.response) {
+                toast.error(error.response.data.message);
+            }
+
+        })
+    }
+}
