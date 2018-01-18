@@ -20,7 +20,7 @@ class NavigationBar extends Component {
     onSearchSubmit = (evt) => {
         // method call to search for a text
         this.props.searchShoppinglistOrItem(this.props.url, this.state.searchText);
-        this.setState({ searchText: '' });
+        return this.setState({ searchText: '' });
     }
     render() {
         const { activeItem } = this.state;
@@ -41,7 +41,7 @@ class NavigationBar extends Component {
                     href="/shoppinglists/"></Menu.Item>
                 <Menu.Item>
                     <Form onSubmit={this.onSearchSubmit}>
-                        <CustFormInput icon='search' placeholder='Search...' name="search" onChange={this.onInputChange} />
+                        <CustFormInput icon='search' placeholder='Search...' name="search" value={this.state.searchText} onChange={this.onInputChange} />
                     </Form>
                 </Menu.Item>
                 <Dropdown item text='User' pointing='top right'>
