@@ -99,7 +99,9 @@ class ShoppinglistPage extends Component {
                                     <CustHeader
                                         header="Shoppinglist"
                                     />
-                                    <NavigationBar/> }
+                                </Grid.Column>
+                                <Grid.Column>
+                                    <NavigationBar />
                                 </Grid.Column>
                             </Grid.Row>
                             <Grid.Row>
@@ -151,7 +153,7 @@ class ShoppinglistPage extends Component {
                                         <Grid.Column >
                                             <CustomLists
                                                 onEditClick={(e) => this.onEditClick(e, oneshoppinglist.id, oneshoppinglist.name)}
-                                                onDeleteClick={() => this.onDeleteClick(oneshoppinglist) }
+                                                onDeleteClick={() => this.onDeleteClick(oneshoppinglist)}
                                                 oneshoppinglist={oneshoppinglist}
                                             />
                                         </Grid.Column>
