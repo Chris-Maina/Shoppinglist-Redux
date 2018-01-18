@@ -11,9 +11,21 @@ class NavigationBar extends Component {
     }
     render() {
         const { activeItem } = this.state;
+        let token = window.localStorage.getItem('token')
+        if(!token){
+            return (
+                <Menu secondary stackable floated="right">
+                    <Menu.Item name="register" active={activeItem === 'register'} onClick={this.handleItemClick}
+                    href="/auth/register/"></Menu.Item>
+                    <Menu.Item name="login" active={activeItem === 'login'} onClick={this.handleItemClick}
+                    href="/auth/login/"></Menu.Item>
+                </Menu >
+            ); 
+        }
         return (
             <Menu secondary stackable floated="right">
-                <Menu.Item name="mylists" active={activeItem === 'mylists'} onClick={this.handleItemClick}></Menu.Item>
+                <Menu.Item name="mylists" active={activeItem === 'mylists'} onClick={this.handleItemClick}
+                href="/shoppinglist"></Menu.Item>
                 <Menu.Item>
                     <Input icon='search' placeholder='Search...' />
                 </Menu.Item>
