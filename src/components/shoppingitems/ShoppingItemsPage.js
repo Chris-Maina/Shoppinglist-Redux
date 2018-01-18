@@ -68,14 +68,27 @@ class ShoppingItemsPage extends Component {
         this.props.deleteShoppingItem(item, this.props.match.params.id)
     }
     render() {
+        let items;
+
         if (!this.props.shoppingitems) {
             return <Loader active content='Loading' />
+        } else {
+            items = this.props.shoppingitems;
         }
-        return (
-            /**
-                Navigation bar
-              */
 
+        if (this.props.searchResults) {
+            if (this.props.searchResults.length > 0) {
+                items = this.props.searchResults;
+            }
+        }
+        /** Custom button style for plus icon */
+        const plusIconStyle = {
+            position: 'fixed',
+            zIndex: '5',
+            right: '45px',
+            bottom: '30px'
+        };
+        return (
             /** Page contents */
 
             <div className="ui container">
@@ -91,7 +104,8 @@ class ShoppingItemsPage extends Component {
                                 />
                             </Grid.Column>
                             <Grid.Column>
-                                <NavigationBar/>
+                                <NavigationBar
+                                    url={this.props.match.url} />
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
@@ -108,18 +122,19 @@ class ShoppingItemsPage extends Component {
                                     </Segment>
                                     :
                                     <div>
-                                    <Header as='h2' inverted color='yellow' floated="left">
-                                        {this.props.singleShoppinglist ? this.props.singleShoppinglist.name: 'Shoppinglist name' }
-                                    </Header>
-                                    <CustButton
-                                        size="massive"
-                                        color="blue"
-                                        icon="plus"
-                                        floated="right"
-                                        onClick={this.onPlusClick}
-                                        circular />
-                                        </div>
-                                    }
+                                        <Header as='h2' inverted color='yellow' floated="left">
+                                            {this.props.singleShoppinglist ? this.props.singleShoppinglist.name : 'Shoppinglist name'}
+                                        </Header>
+                                        <CustButton
+                                            style={plusIconStyle}
+                                            size="massive"
+                                            color="yellow"
+                                            icon="plus"
+                                            floated="right"
+                                            onClick={this.onPlusClick}
+                                            circular />
+                                    </div>
+                                }
                             </Grid.Column>
                         </Grid.Row>
                         {typeof (this.props.shoppingitems) === 'string' ?
@@ -147,7 +162,7 @@ class ShoppingItemsPage extends Component {
                                             </Table.Row>
                                         </Table.Header>
                                         <Table.Body>
-                                            {this.props.shoppingitems.map(oneshoppingitem =>
+                                            {items.map(oneshoppingitem =>
                                                 <Table.Row
                                                     key={oneshoppingitem.id}>
                                                     <Table.Cell>{oneshoppingitem.name}</Table.Cell>
@@ -193,8 +208,10 @@ ShoppingItemsPage.propTypes = {
 
 function mapStateToProps(state, ownProps) {
     let { shoppingitems, loading, isFormOpen, isEditClicked, singleShoppinglist } = state.shoppingitem
+    let { searchResults } = state.search
+
     return {
-        loading, shoppingitems, isFormOpen, isEditClicked, singleShoppinglist
+        loading, shoppingitems, isFormOpen, isEditClicked, singleShoppinglist, searchResults
     }
 }
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import CustHeader from '../common/CustHeader'
-import AnimatedButton from '../common/AnimatedButton'
 import CustButton from '../common/Button'
 import CustomLists from './CustLists'
 import { Grid, Loader, Card } from 'semantic-ui-react'
@@ -78,10 +77,24 @@ class ShoppinglistPage extends Component {
         });
     }
     render() {
+        let item;
         if (!this.props.shoppinglists) {
             return <Loader active content='Loading' />
+        }else{
+            item = this.props.shoppinglists;
         }
-
+        if( this.props.searchResults ){
+            if( this.props.searchResults.length > 0 ){
+                item = this.props.searchResults;
+            }
+        }
+        /** Custom button style for plus icon */
+        const plusIconStyle = {
+            position: 'fixed',
+            zIndex: '5',
+            right: '45px',
+            bottom: '30px'
+        };
         return (
             <div>
                 { /**
@@ -101,7 +114,8 @@ class ShoppinglistPage extends Component {
                                     />
                                 </Grid.Column>
                                 <Grid.Column>
-                                    <NavigationBar />
+                                    <NavigationBar
+                                    url={this.props.match.url}/>
                                 </Grid.Column>
                             </Grid.Row>
                             <Grid.Row>
@@ -120,13 +134,15 @@ class ShoppinglistPage extends Component {
                                         />
                                     </Grid.Column>
                                     :
-                                    <Grid.Column textAlign="right">
-                                        <AnimatedButton
+                                    <Grid.Column >
+                                        <CustButton
+                                            style={plusIconStyle}
                                             onClick={this.onPlusClick}
-                                            color='blue'
-                                            size='huge'
-                                            content="Create list"
-                                            iconName="plus"
+                                            color='yellow'
+                                            size='massive'
+                                            icon="plus"
+                                            floated="right"
+                                            circular
                                         />
                                     </Grid.Column>
                                 }
@@ -145,7 +161,7 @@ class ShoppinglistPage extends Component {
                                     </Card>
                                 </Grid.Column>
                                 :
-                                this.props.shoppinglists.map(oneshoppinglist =>
+                                item.map(oneshoppinglist =>
                                     <Grid.Row
                                         key={oneshoppinglist.id}
                                         centered
@@ -191,8 +207,9 @@ ShoppinglistPage.propTypes = {
 function mapStateToProps(state, ownProps) {
     // destructure shoppinglist object
     let { loading, redirect, shoppinglists, isFormOpen, isEditClicked } = state.shoppinglist;
+    let { searchResults } = state.search
     return {
-        loading, redirect, shoppinglists, isFormOpen, isEditClicked
+        loading, redirect, shoppinglists, isFormOpen, isEditClicked, searchResults
     };
 }
 export default connect(mapStateToProps, { ...shoppinglistActions })(ShoppinglistPage);
