@@ -78,10 +78,17 @@ class ShoppinglistPage extends Component {
         });
     }
     render() {
+        let item;
         if (!this.props.shoppinglists) {
             return <Loader active content='Loading' />
+        }else{
+            item = this.props.shoppinglists;
         }
-
+        if( this.props.searchResults ){
+            if( this.props.searchResults.length > 0 ){
+                item = this.props.searchResults;
+            }
+        }
         return (
             <div>
                 { /**
@@ -101,7 +108,8 @@ class ShoppinglistPage extends Component {
                                     />
                                 </Grid.Column>
                                 <Grid.Column>
-                                    <NavigationBar />
+                                    <NavigationBar
+                                    url={this.props.match.url}/>
                                 </Grid.Column>
                             </Grid.Row>
                             <Grid.Row>
@@ -145,7 +153,7 @@ class ShoppinglistPage extends Component {
                                     </Card>
                                 </Grid.Column>
                                 :
-                                this.props.shoppinglists.map(oneshoppinglist =>
+                                item.map(oneshoppinglist =>
                                     <Grid.Row
                                         key={oneshoppinglist.id}
                                         centered
@@ -191,8 +199,9 @@ ShoppinglistPage.propTypes = {
 function mapStateToProps(state, ownProps) {
     // destructure shoppinglist object
     let { loading, redirect, shoppinglists, isFormOpen, isEditClicked } = state.shoppinglist;
+    let { searchResults } = state.search
     return {
-        loading, redirect, shoppinglists, isFormOpen, isEditClicked
+        loading, redirect, shoppinglists, isFormOpen, isEditClicked, searchResults
     };
 }
 export default connect(mapStateToProps, { ...shoppinglistActions })(ShoppinglistPage);
