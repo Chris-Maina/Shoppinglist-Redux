@@ -9,6 +9,7 @@ import * as shoppinglistActions from '../../actions/shoppinglistActions';
 import { ToastContainer } from 'react-toastify';
 import PropTypes from 'prop-types';
 import ShoplistForm from './ShoppinglistForm'
+import NavigationBar from '../common/NavigationBar';
 
 class ShoppinglistPage extends Component {
     constructor(props, context) {
@@ -99,6 +100,9 @@ class ShoppinglistPage extends Component {
                                         header="Shoppinglist"
                                     />
                                 </Grid.Column>
+                                <Grid.Column>
+                                    <NavigationBar />
+                                </Grid.Column>
                             </Grid.Row>
                             <Grid.Row>
                                 {this.props.isFormOpen ?
@@ -149,7 +153,7 @@ class ShoppinglistPage extends Component {
                                         <Grid.Column >
                                             <CustomLists
                                                 onEditClick={(e) => this.onEditClick(e, oneshoppinglist.id, oneshoppinglist.name)}
-                                                onDeleteClick={() => this.onDeleteClick(oneshoppinglist) }
+                                                onDeleteClick={() => this.onDeleteClick(oneshoppinglist)}
                                                 oneshoppinglist={oneshoppinglist}
                                             />
                                         </Grid.Column>

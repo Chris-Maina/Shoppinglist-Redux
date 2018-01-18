@@ -7,6 +7,7 @@ import * as shoppingItemActions from './../../actions/shoppingitemActions'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ShoppingItemForm from './ShoppingItemForm';
+import NavigationBar from '../common/NavigationBar';
 
 class ShoppingItemsPage extends Component {
     constructor(props, context) {
@@ -88,6 +89,9 @@ class ShoppingItemsPage extends Component {
                                 <CustHeader
                                     header="Shoppingitems"
                                 />
+                            </Grid.Column>
+                            <Grid.Column>
+                                <NavigationBar/>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
