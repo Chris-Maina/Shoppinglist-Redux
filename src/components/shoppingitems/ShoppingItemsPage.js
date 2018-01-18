@@ -81,7 +81,13 @@ class ShoppingItemsPage extends Component {
                 items = this.props.searchResults;
             }
         }
-        
+        /** Custom button style for plus icon */
+        const plusIconStyle = {
+            position: 'fixed',
+            zIndex: '5',
+            right: '45px',
+            bottom: '30px'
+        };
         return (
             /** Page contents */
 
@@ -120,8 +126,9 @@ class ShoppingItemsPage extends Component {
                                             {this.props.singleShoppinglist ? this.props.singleShoppinglist.name : 'Shoppinglist name'}
                                         </Header>
                                         <CustButton
+                                            style={plusIconStyle}
                                             size="massive"
-                                            color="blue"
+                                            color="yellow"
                                             icon="plus"
                                             floated="right"
                                             onClick={this.onPlusClick}
