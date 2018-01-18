@@ -12,17 +12,17 @@ class NavigationBar extends Component {
     render() {
         const { activeItem } = this.state;
         return (
-            <Menu secondary>
+            <Menu secondary stackable floated="right">
                 <Menu.Item name="mylists" active={activeItem === 'mylists'} onClick={this.handleItemClick}></Menu.Item>
                 <Menu.Item>
                     <Input icon='search' placeholder='Search...' />
                 </Menu.Item>
-                <Dropdown item text='User'>
+                <Dropdown item text='User' pointing='top right'>
                     <Dropdown.Menu>
-                        <Dropdown.Item>Profile</Dropdown.Item>
+                        <Dropdown.Item icon='user circle outline' text="Profile"/>
+                        <Dropdown.Item icon='log out' text="Logout"/>
                     </Dropdown.Menu>
                 </Dropdown>
-                <Menu.Item name="logout" active={activeItem === 'logout'}></Menu.Item>
             </Menu >
         );
     }
