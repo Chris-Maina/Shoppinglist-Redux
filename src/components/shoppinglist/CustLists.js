@@ -27,7 +27,7 @@ const CustomLists = props => {
                     content="Delete"
                     iconName="trash"
                 />
-                <Link to={`shoppinglist/${props.oneshoppinglist.id}/items`} as="button"
+                <Link to={`${props.oneshoppinglist.id}/items`} as="button"
                     className="ui blue right floated animated large button">
                     <div className="hidden content">Add item</div>
                     <div className="visible content">

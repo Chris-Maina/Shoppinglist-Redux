@@ -33,7 +33,7 @@ class LoginPage extends Component {
         setTimeout(() => {
             // Redirect on successful log in
             if (this.props.redirect) {
-                this.context.router.history.push('/shoppinglist');
+                this.context.router.history.push('/shoppinglists/');
             }
         }, 5000)
         // set states to empty
