@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import CustHeader from '../common/CustHeader'
-import AnimatedButton from '../common/AnimatedButton'
 import CustButton from '../common/Button'
 import CustomLists from './CustLists'
 import { Grid, Loader, Card } from 'semantic-ui-react'
@@ -89,6 +88,13 @@ class ShoppinglistPage extends Component {
                 item = this.props.searchResults;
             }
         }
+        /** Custom button style for plus icon */
+        const plusIconStyle = {
+            position: 'fixed',
+            zIndex: '5',
+            right: '45px',
+            bottom: '30px'
+        };
         return (
             <div>
                 { /**
@@ -128,13 +134,15 @@ class ShoppinglistPage extends Component {
                                         />
                                     </Grid.Column>
                                     :
-                                    <Grid.Column textAlign="right">
-                                        <AnimatedButton
+                                    <Grid.Column >
+                                        <CustButton
+                                            style={plusIconStyle}
                                             onClick={this.onPlusClick}
-                                            color='blue'
-                                            size='huge'
-                                            content="Create list"
-                                            iconName="plus"
+                                            color='yellow'
+                                            size='massive'
+                                            icon="plus"
+                                            floated="right"
+                                            circular
                                         />
                                     </Grid.Column>
                                 }
