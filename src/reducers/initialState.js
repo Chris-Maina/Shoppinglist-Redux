@@ -6,5 +6,6 @@ export default {
     shoppinglists: {},
     isEditClicked: false,
     shoppingitems: {},
-    singleShoppinglist: {}
+    singleShoppinglist: {},
+    searchResults: {}
 }
