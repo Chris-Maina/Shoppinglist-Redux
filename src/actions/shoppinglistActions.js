@@ -35,7 +35,6 @@ export function getShoppinglist() {
                 // that falls out of the range of 2xx
                 toast.error(error.response.data.message);
                 if (error.response.status === 408) {
-                    toast.error(error.response.data.message);
                     return window.localStorage.removeItem('token');
                 }
             }
