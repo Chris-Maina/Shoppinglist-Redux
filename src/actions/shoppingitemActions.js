@@ -40,6 +40,83 @@ export function getShoppingitems(id) {
         })
     }
 }
+
+export function nextPageRequestItems(){
+    return { type: types.NEXT_PAGE_REQUEST_SHOPPINGITEMS}
+}
+export function nextPageSuccessItems(response){
+    return { type: types.NEXT_PAGE_SUCCESS_SHOPPINGITEMS, response}
+}
+export function nextPageErrorItems(){
+    return { type: types.NEXT_PAGE_ERROR_SHOPPINGITEMS}
+}
+
+export function getNextPageItems(nextPageUrl){
+    return function (dispatch){
+        // dispatch next page request
+        dispatch(nextPageRequestItems())
+        return axiosConfig.request({
+            method: 'get',
+            url: nextPageUrl,
+            headers: {
+                'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+            }
+        }).then(response=>{
+            // dispatch a success action
+            dispatch(nextPageSuccessItems(response))
+        }).catch(error=>{
+            // dispatch an error action
+            dispatch(nextPageErrorItems())
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                toast.error(error.response.data.message);
+                if (error.response.status === 408) {
+                    return window.localStorage.removeItem('token');
+                }
+            }
+        })
+    }
+}
+
+export function prevPageRequestItems(){
+    return { type: types.PREV_PAGE_REQUEST_SHOPPINGITEMS}
+}
+export function prevPageSuccessItems(response){
+    return { type: types.PREV_PAGE_SUCCESS_SHOPPINGITEMS, response}
+}
+export function prevPageErrorItems(){
+    return { type: types.PREV_PAGE_ERROR_SHOPPINGITEMS}
+}
+
+export function getPrevPageItems(prevPageUrl){
+    return function (dispatch){
+        // dispatch next page request
+        dispatch(prevPageRequestItems())
+        return axiosConfig.request({
+            method: 'get',
+            url: prevPageUrl,
+            headers: {
+                'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+            }
+        }).then(response=>{
+            // dispatch a success action
+            dispatch(prevPageSuccessItems(response))
+        }).catch(error=>{
+            // dispatch an error action
+            dispatch(prevPageErrorItems())
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                toast.error(error.response.data.message);
+                if (error.response.status === 408) {
+                    return window.localStorage.removeItem('token');
+                }
+            }
+        })
+    }
+}
+
 export function formOpen() {
     return { type: types.TOGGLE_FORM_OPEN }
 }
