@@ -14,13 +14,51 @@ export default function shoppinglistReducer(state = initialState, action) {
                 ...state,
                 loading: false,
                 redirect: false,
-                shoppinglists: action.response.data.shopping_lists
+                shoppinglists: action.response.data.shopping_lists,
+                nextPage: action.response.data.next_page,
+                prevPage: action.response.data.previous_page
             }
         case actionTypes.GET_SHOPPINGLIST_FAIL:
             return {
                 ...state,
                 loading: false,
                 redirect: false
+            }
+        case actionTypes.NEXT_PAGE_REQUEST_SHOPPINGLIST:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.NEXT_PAGE_SUCCESS_SHOPPINGLIST:
+            return {
+                ...state,
+                loading: false,
+                shoppinglists: action.response.data.shopping_lists,
+                nextPage: action.response.data.next_page,
+                prevPage: action.response.data.previous_page
+            }
+        case actionTypes.NEXT_PAGE_ERROR_SHOPPINGLIST:
+            return {
+                ...state,
+                loading: false
+            }
+            case actionTypes.PREV_PAGE_REQUEST_SHOPPINGLIST:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.PREV_PAGE_SUCCESS_SHOPPINGLIST:
+            return {
+                ...state,
+                loading: false,
+                shoppinglists: action.response.data.shopping_lists,
+                nextPage: action.response.data.next_page,
+                prevPage: action.response.data.previous_page
+            }
+        case actionTypes.PREV_PAGE_ERROR_SHOPPINGLIST:
+            return {
+                ...state,
+                loading: false
             }
         case actionTypes.TOGGLE_FORM_OPEN:
             return {
