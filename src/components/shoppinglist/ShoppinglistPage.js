@@ -185,20 +185,23 @@ class ShoppinglistPage extends Component {
                                     </Grid.Row>)}
                             <Grid.Row>
                                 <Grid.Column >
+                                {this.props.prevPage === 'None' ? '' :
                                     <CustButton
                                         color="blue"
                                         size="medium"
                                         buttonName="Previous"
                                         floated="right"
                                         onClick={this.onPrevClick} />
-
+                                }
                                 </Grid.Column>
                                 <Grid.Column>
+                                {this.props.nextPage === 'None' ? '' :
                                     <CustButton
                                         color="blue"
                                         size="medium"
                                         buttonName="Next"
                                         onClick={this.onNextClick} />
+                                }
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>

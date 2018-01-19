@@ -63,11 +63,11 @@ class ShoppingItemsPage extends Component {
         // set state to item clicked
         this.setState({ item: item })
     }
-    onDeleteClick=(item)=> {
+    onDeleteClick = (item) => {
         // method call to delete an item
         this.props.deleteShoppingItem(item, this.props.match.params.id)
     }
-    onPrevClick = () =>{
+    onPrevClick = () => {
         // dispatch a call to get prev page shopping items
         this.props.getPrevPageItems(this.props.prevPage)
     }
@@ -204,21 +204,27 @@ class ShoppingItemsPage extends Component {
                             </Grid.Row>
                         }
                         <Grid.Row>
+
                             <Grid.Column>
-                            <CustButton
+                                {this.props.prevPage === 'None' ? '' :
+                                    <CustButton
                                         color="blue"
                                         size="medium"
                                         buttonName="Previous"
                                         floated="right"
                                         onClick={this.onPrevClick} />
+                                }
                             </Grid.Column>
                             <Grid.Column>
-                            <CustButton
+                                {this.props.nextPage === 'None' ? '' :
+                                    <CustButton
                                         color="blue"
                                         size="medium"
                                         buttonName="Next"
                                         onClick={this.onNextClick} />
+                                }
                             </Grid.Column>
+
                         </Grid.Row>
                     </Grid>
                 }
@@ -233,11 +239,11 @@ ShoppingItemsPage.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
-    let { shoppingitems, loading, isFormOpen, isEditClicked, singleShoppinglist,prevPage, nextPage } = state.shoppingitem
+    let { shoppingitems, loading, isFormOpen, isEditClicked, singleShoppinglist, prevPage, nextPage } = state.shoppingitem
     let { searchResults } = state.search
 
     return {
-        loading, shoppingitems, isFormOpen, isEditClicked, singleShoppinglist, searchResults,prevPage, nextPage
+        loading, shoppingitems, isFormOpen, isEditClicked, singleShoppinglist, searchResults, prevPage, nextPage
     }
 }
 
