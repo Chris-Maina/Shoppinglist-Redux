@@ -6,8 +6,8 @@ import * as searchActions from '../../actions/searchActions';
 import PropTypes from 'prop-types';
 
 class NavigationBar extends Component {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
         this.state = { activeItem: "", searchText: '' }
     }
     handleItemClick = (e, name) => {
@@ -21,6 +21,10 @@ class NavigationBar extends Component {
         // method call to search for a text
         this.props.searchShoppinglistOrItem(this.props.url, this.state.searchText);
         return this.setState({ searchText: '' });
+    }
+    onLogoutClick = () => {
+        window.localStorage.removeItem('token');
+        this.context.router.history.push('/auth/login/');
     }
     render() {
         const { activeItem } = this.state;
@@ -47,13 +51,17 @@ class NavigationBar extends Component {
                 <Dropdown item text='User' pointing='top right'>
                     <Dropdown.Menu>
                         <Dropdown.Item icon='user circle outline' text="Profile" />
-                        <Dropdown.Item icon='log out' text="Logout" />
+                        <Dropdown.Item onClick={this.onLogoutClick} icon='log out' text="Logout" />
                     </Dropdown.Menu>
                 </Dropdown>
             </Menu >
         );
     }
 }
+// Get the Router context so router is available on this.context.router.
+NavigationBar.contextTypes = {
+    router: PropTypes.object
+};
 NavigationBar.propTypes = {
     search: PropTypes.object
 }

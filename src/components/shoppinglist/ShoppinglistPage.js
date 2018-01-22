@@ -76,15 +76,23 @@ class ShoppinglistPage extends Component {
             this.props.getShoppinglist();
         });
     }
+    onNextClick = () => {
+        // dispatch a call to get next page
+        this.props.getNextPage(this.props.nextPage)
+    }
+    onPrevClick = () => {
+        // dispatch a call to get prev page
+        this.props.getPrevPage(this.props.prevPage)
+    }
     render() {
         let item;
         if (!this.props.shoppinglists) {
             return <Loader active content='Loading' />
-        }else{
+        } else {
             item = this.props.shoppinglists;
         }
-        if( this.props.searchResults ){
-            if( this.props.searchResults.length > 0 ){
+        if (this.props.searchResults) {
+            if (this.props.searchResults.length > 0) {
                 item = this.props.searchResults;
             }
         }
@@ -115,7 +123,7 @@ class ShoppinglistPage extends Component {
                                 </Grid.Column>
                                 <Grid.Column>
                                     <NavigationBar
-                                    url={this.props.match.url}/>
+                                        url={this.props.match.url} />
                                 </Grid.Column>
                             </Grid.Row>
                             <Grid.Row>
@@ -176,17 +184,24 @@ class ShoppinglistPage extends Component {
 
                                     </Grid.Row>)}
                             <Grid.Row>
-                                <Grid.Column textAlign="center">
+                                <Grid.Column >
+                                {this.props.prevPage === 'None' ? '' :
                                     <CustButton
                                         color="blue"
                                         size="medium"
-                                        buttonName="Next" />
+                                        buttonName="Previous"
+                                        floated="right"
+                                        onClick={this.onPrevClick} />
+                                }
                                 </Grid.Column>
                                 <Grid.Column>
+                                {this.props.nextPage === 'None' ? '' :
                                     <CustButton
                                         color="blue"
                                         size="medium"
-                                        buttonName="Previous" />
+                                        buttonName="Next"
+                                        onClick={this.onNextClick} />
+                                }
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
@@ -206,10 +221,10 @@ ShoppinglistPage.propTypes = {
 }
 function mapStateToProps(state, ownProps) {
     // destructure shoppinglist object
-    let { loading, redirect, shoppinglists, isFormOpen, isEditClicked } = state.shoppinglist;
+    let { loading, redirect, shoppinglists, isFormOpen, isEditClicked, nextPage, prevPage } = state.shoppinglist;
     let { searchResults } = state.search
     return {
-        loading, redirect, shoppinglists, isFormOpen, isEditClicked, searchResults
+        loading, redirect, shoppinglists, isFormOpen, isEditClicked, searchResults, nextPage, prevPage
     };
 }
 export default connect(mapStateToProps, { ...shoppinglistActions })(ShoppinglistPage);

@@ -7,5 +7,7 @@ export default {
     isEditClicked: false,
     shoppingitems: {},
     singleShoppinglist: {},
-    searchResults: {}
+    searchResults: {},
+    nextPage: '',
+    prevPage: ''
 }

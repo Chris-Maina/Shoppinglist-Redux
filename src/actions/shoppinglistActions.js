@@ -35,11 +35,85 @@ export function getShoppinglist() {
                 // that falls out of the range of 2xx
                 toast.error(error.response.data.message);
                 if (error.response.status === 408) {
-                    toast.error(error.response.data.message);
                     return window.localStorage.removeItem('token');
                 }
             }
 
+        })
+    }
+}
+export function nextPageRequest(){
+    return { type: types.NEXT_PAGE_REQUEST_SHOPPINGLIST}
+}
+export function nextPageSuccess(response){
+    return { type: types.NEXT_PAGE_SUCCESS_SHOPPINGLIST, response}
+}
+export function nextPageError(){
+    return { type: types.NEXT_PAGE_ERROR_SHOPPINGLIST}
+}
+export function getNextPage(nextPageUrl){
+    return function (dispatch){
+        // dispatch next page request
+        dispatch(nextPageRequest())
+        return axiosConfig.request({
+            method: 'get',
+            url: nextPageUrl,
+            headers: {
+                'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+            }
+        }).then(response=>{
+            // dispatch a success action
+            dispatch(nextPageSuccess(response))
+        }).catch(error=>{
+            // dispatch an error action
+            dispatch(nextPageError())
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                toast.error(error.response.data.message);
+                if (error.response.status === 408) {
+                    toast.error(error.response.data.message);
+                    return window.localStorage.removeItem('token');
+                }
+            }
+        })
+    }
+}
+
+export function prevPageRequest(){
+    return { type: types.PREV_PAGE_REQUEST_SHOPPINGLIST}
+}
+export function prevPageSuccess(response){
+    return { type: types.PREV_PAGE_SUCCESS_SHOPPINGLIST, response}
+}
+export function prevPageError(){
+    return { type: types.PREV_PAGE_ERROR_SHOPPINGLIST}
+}
+export function getPrevPage(prevPageUrl){
+    return function (dispatch){
+        // dispatch PREV page request
+        dispatch(prevPageRequest())
+        return axiosConfig.request({
+            method: 'get',
+            url: prevPageUrl,
+            headers: {
+                'Authorization': 'Bearer ' + window.localStorage.getItem('token')
+            }
+        }).then(response=>{
+            // dispatch a success action
+            dispatch(prevPageSuccess(response))
+        }).catch(error=>{
+            // dispatch an error action
+            dispatch(prevPageError())
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                toast.error(error.response.data.message);
+                if (error.response.status === 408) {
+                    toast.error(error.response.data.message);
+                    return window.localStorage.removeItem('token');
+                }
+            }
         })
     }
 }
