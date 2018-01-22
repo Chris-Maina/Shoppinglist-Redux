@@ -25,12 +25,10 @@ export function loginUser(user) {
             data: { ...user }
         }).then(response => {
             toast.success(response.data.message);
-            // dispatch a success action
-            dispatch(loginSuccess(response));
-
             // Load access token in local storage
             window.localStorage.setItem('token', response.data.access_token);
-
+            // dispatch a success action
+            dispatch(loginSuccess(response));
         }).catch(error => {
             if (error.response) {
                 // The request was made and the server responded with a status code
