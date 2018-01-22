@@ -12,9 +12,47 @@ export default function shoppingItemReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                shoppingitems: action.response.data.shopping_items
+                shoppingitems: action.response.data.shopping_items,
+                nextPage: action.response.data.next_page,
+                prevPage: action.response.data.previous_page
             }
         case actionTypes.GET_SHOPPINGITEMS_ERROR:
+            return {
+                ...state,
+                loading: false
+            }
+        case actionTypes.NEXT_PAGE_REQUEST_SHOPPINGITEMS:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.NEXT_PAGE_SUCCESS_SHOPPINGITEMS:
+            return {
+                ...state,
+                loading: false,
+                shoppingitems: action.response.data.shopping_items,
+                nextPage: action.response.data.next_page,
+                prevPage: action.response.data.previous_page
+            }
+        case actionTypes.NEXT_PAGE_ERROR_SHOPPINGITEMS:
+            return {
+                ...state,
+                loading: false
+            }
+            case actionTypes.PREV_PAGE_REQUEST_SHOPPINGITEMS:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.PREV_PAGE_SUCCESS_SHOPPINGITEMS:
+            return {
+                ...state,
+                loading: false,
+                shoppingitems: action.response.data.shopping_items,
+                nextPage: action.response.data.next_page,
+                prevPage: action.response.data.previous_page
+            }
+        case actionTypes.PREV_PAGE_ERROR_SHOPPINGITEMS:
             return {
                 ...state,
                 loading: false

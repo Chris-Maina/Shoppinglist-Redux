@@ -63,10 +63,19 @@ class ShoppingItemsPage extends Component {
         // set state to item clicked
         this.setState({ item: item })
     }
-    onDeleteClick(item) {
+    onDeleteClick = (item) => {
         // method call to delete an item
         this.props.deleteShoppingItem(item, this.props.match.params.id)
     }
+    onPrevClick = () => {
+        // dispatch a call to get prev page shopping items
+        this.props.getPrevPageItems(this.props.prevPage)
+    }
+    onNextClick = () => {
+        // dispatch a call to get next page shopping items
+        this.props.getNextPageItems(this.props.nextPage)
+    }
+
     render() {
         let items;
 
@@ -194,6 +203,29 @@ class ShoppingItemsPage extends Component {
                                 </Grid.Column>
                             </Grid.Row>
                         }
+                        <Grid.Row>
+
+                            <Grid.Column>
+                                {this.props.prevPage === 'None' ? '' :
+                                    <CustButton
+                                        color="blue"
+                                        size="medium"
+                                        buttonName="Previous"
+                                        floated="right"
+                                        onClick={this.onPrevClick} />
+                                }
+                            </Grid.Column>
+                            <Grid.Column>
+                                {this.props.nextPage === 'None' ? '' :
+                                    <CustButton
+                                        color="blue"
+                                        size="medium"
+                                        buttonName="Next"
+                                        onClick={this.onNextClick} />
+                                }
+                            </Grid.Column>
+
+                        </Grid.Row>
                     </Grid>
                 }
 
@@ -207,11 +239,11 @@ ShoppingItemsPage.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
-    let { shoppingitems, loading, isFormOpen, isEditClicked, singleShoppinglist } = state.shoppingitem
+    let { shoppingitems, loading, isFormOpen, isEditClicked, singleShoppinglist, prevPage, nextPage } = state.shoppingitem
     let { searchResults } = state.search
 
     return {
-        loading, shoppingitems, isFormOpen, isEditClicked, singleShoppinglist, searchResults
+        loading, shoppingitems, isFormOpen, isEditClicked, singleShoppinglist, searchResults, prevPage, nextPage
     }
 }
 
