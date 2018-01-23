@@ -3,7 +3,9 @@ import { Table, Loader, Grid, Card, Segment, Header } from 'semantic-ui-react';
 import { ToastContainer } from 'react-toastify';
 import CustButton from './../common/Button';
 import CustHeader from './../common/CustHeader'
+import CustomConfirm from './../common/CustomConfirm'
 import * as shoppingItemActions from './../../actions/shoppingitemActions'
+import {getUserProfile} from '../../actions/userProfileActions'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ShoppingItemForm from './ShoppingItemForm';
@@ -18,13 +20,16 @@ class ShoppingItemsPage extends Component {
                 name: '',
                 price: '',
                 quantity: ''
-            }
+            },
+            open: false
         }
     }
     componentWillMount() {
         this.props.getShoppingitems(this.props.match.params.id)
         // get the shoppinglist it belongs to
         this.props.getSingleShoppinglist(this.props.match.params.id)
+        // dispatch an action to get the loagged in user
+        this.props.getUserProfile()
     }
     onPlusClick = () => {
         // dispatch an action to open the form
@@ -66,6 +71,7 @@ class ShoppingItemsPage extends Component {
     onDeleteClick = (item) => {
         // method call to delete an item
         this.props.deleteShoppingItem(item, this.props.match.params.id)
+        this.setState({ open: false })
     }
     onPrevClick = () => {
         // dispatch a call to get prev page shopping items
@@ -74,6 +80,12 @@ class ShoppingItemsPage extends Component {
     onNextClick = () => {
         // dispatch a call to get next page shopping items
         this.props.getNextPageItems(this.props.nextPage)
+    }
+    showConfirm = () => {
+        this.setState({ open: true })
+    }
+    handleCancel = () => {
+        this.setState({ open: false })
     }
 
     render() {
@@ -90,13 +102,6 @@ class ShoppingItemsPage extends Component {
                 items = this.props.searchResults;
             }
         }
-        /** Custom button style for plus icon */
-        const plusIconStyle = {
-            position: 'fixed',
-            zIndex: '5',
-            right: '45px',
-            bottom: '30px'
-        };
         return (
             /** Page contents */
 
@@ -136,7 +141,7 @@ class ShoppingItemsPage extends Component {
                                             {this.props.singleShoppinglist ? this.props.singleShoppinglist.name : 'Shoppinglist name'}
                                         </Header>
                                         <CustButton
-                                            style={plusIconStyle}
+                                            className="plusIconStyle"
                                             size="massive"
                                             color="yellow"
                                             icon="plus"
@@ -192,9 +197,15 @@ class ShoppingItemsPage extends Component {
                                                             size="tiny"
                                                             color="red"
                                                             icon="trash"
-                                                            onClick={() => this.onDeleteClick(oneshoppingitem)}
+                                                            onClick={this.showConfirm}
                                                             circular
                                                         />
+                                                        <CustomConfirm
+                                                            open={this.state.open}
+                                                            onCancel={this.handleCancel}
+                                                            content='Are you sure you want to delete this item?'
+                                                            size='small'
+                                                            onConfirm={() => this.onDeleteClick(oneshoppingitem)} />
                                                     </Table.Cell>
                                                 </Table.Row>
                                             )}
@@ -242,11 +253,11 @@ ShoppingItemsPage.propTypes = {
 function mapStateToProps(state, ownProps) {
     let { shoppingitems, loading, isFormOpen, isEditClicked, singleShoppinglist, prevPage, nextPage } = state.shoppingitem
     let { searchResults } = state.search
-    let {user} = state.userprofile
+    let { user } = state.userprofile
 
     return {
         loading, shoppingitems, isFormOpen, isEditClicked, singleShoppinglist, searchResults, prevPage, nextPage, user
     }
 }
 
-export default connect(mapStateToProps, { ...shoppingItemActions })(ShoppingItemsPage);
+export default connect(mapStateToProps, { ...shoppingItemActions, getUserProfile })(ShoppingItemsPage);

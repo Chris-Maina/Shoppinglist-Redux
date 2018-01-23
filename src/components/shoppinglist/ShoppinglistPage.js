@@ -14,7 +14,7 @@ import NavigationBar from '../common/NavigationBar';
 class ShoppinglistPage extends Component {
     constructor(props, context) {
         super(props, context);
-        this.state = { shoppinglistId: '', shoppinglistName: '' }
+        this.state = { shoppinglistId: '', shoppinglistName: '', open: false }
     }
 
     componentWillMount() {
@@ -78,6 +78,8 @@ class ShoppinglistPage extends Component {
             // method call to get all shoppinglist
             this.props.getShoppinglist();
         });
+        // close the confirm dialog
+        this.setState({ open: false })
     }
     onNextClick = () => {
         // dispatch a call to get next page
@@ -86,6 +88,12 @@ class ShoppinglistPage extends Component {
     onPrevClick = () => {
         // dispatch a call to get prev page
         this.props.getPrevPage(this.props.prevPage)
+    }
+    showConfirm = () => {
+        this.setState({ open: true })
+    }
+    handleCancel = () => {
+        this.setState({ open: false })
     }
     render() {
         let item;
@@ -99,13 +107,6 @@ class ShoppinglistPage extends Component {
                 item = this.props.searchResults;
             }
         }
-        /** Custom button style for plus icon */
-        const plusIconStyle = {
-            position: 'fixed',
-            zIndex: '5',
-            right: '45px',
-            bottom: '30px'
-        };
         return (
             <div>
                 { /**
@@ -148,7 +149,7 @@ class ShoppinglistPage extends Component {
                                     :
                                     <Grid.Column >
                                         <CustButton
-                                            style={plusIconStyle}
+                                            className="plusIconStyle"
                                             onClick={this.onPlusClick}
                                             color='yellow'
                                             size='massive'
@@ -181,7 +182,10 @@ class ShoppinglistPage extends Component {
                                         <Grid.Column >
                                             <CustomLists
                                                 onEditClick={(e) => this.onEditClick(e, oneshoppinglist.id, oneshoppinglist.name)}
-                                                onDeleteClick={() => this.onDeleteClick(oneshoppinglist)}
+                                                open={this.state.open}
+                                                onDeleteClick={this.showConfirm}
+                                                onCancel = {this.handleCancel}
+                                                onConfirm = {() => this.onDeleteClick(oneshoppinglist)}
                                                 oneshoppinglist={oneshoppinglist}
                                             />
                                         </Grid.Column>
