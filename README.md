@@ -11,3 +11,19 @@ Technologies used include:
         React 
         React-redux
         Semantic-Ui
+
+### Live version
+Click the link to view the live verions, [Shoppinglist Redux](https://chris-shoppinglist-redux.herokuapp.com/)
+
+### Getting started
+Clone this repository
+        https://github.com/Chris-Maina/Shoppinglist-Redux.git
+
+### Install dependencies
+Run the code below on your terminal to install dependencies
+
+        npm install
+
+### Run the application
+
+        npm start
