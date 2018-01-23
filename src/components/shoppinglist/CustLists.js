@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card } from 'semantic-ui-react'
 import AnimatedButton from '../common/AnimatedButton'
+import CustomConfirm from '../common/CustomConfirm'
 import { Link } from 'react-router-dom'
 
 const CustomLists = props => {
@@ -26,6 +27,13 @@ const CustomLists = props => {
                     size='tiny'
                     content="Delete"
                     iconName="trash"
+                />
+                <CustomConfirm
+                open={props.open} 
+                content='Are you sure you want to delete this list?'
+                size='small'
+                onCancel={props.onCancel}
+                onConfirm={props.onConfirm}
                 />
                 <Link to={`${props.oneshoppinglist.id}/items`} as="button"
                     className="ui blue right floated animated large button">
