@@ -48,7 +48,7 @@ class NavigationBar extends Component {
                         <CustFormInput icon='search' placeholder='Search...' name="search" value={this.state.searchText} onChange={this.onInputChange} />
                     </Form>
                 </Menu.Item>
-                <Dropdown item text='User' pointing='top right'>
+                <Dropdown item text={this.props.user.email} pointing='top right'>
                     <Dropdown.Menu>
                         <Dropdown.Item href="/profile/"icon='user circle outline' text="Profile" />
                         <Dropdown.Item onClick={this.onLogoutClick} icon='log out' text="Logout" />
