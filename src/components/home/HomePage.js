@@ -17,9 +17,9 @@ const HomePage = (props) => {
                             <a href="/auth/login/">  <CustButton size="huge" color="yellow" buttonName="Login"/></a>
                         </div>
                     </div>
-                </div>]
+                </div>
             </header>
-
+            
         </div>
     );
 }

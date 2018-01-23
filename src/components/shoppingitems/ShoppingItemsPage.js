@@ -79,7 +79,7 @@ class ShoppingItemsPage extends Component {
     render() {
         let items;
 
-        if (!this.props.shoppingitems) {
+        if (!this.props.shoppingitems || !this.props.user) {
             return <Loader active content='Loading' />
         } else {
             items = this.props.shoppingitems;
@@ -114,6 +114,7 @@ class ShoppingItemsPage extends Component {
                             </Grid.Column>
                             <Grid.Column>
                                 <NavigationBar
+                                    user={this.props.user}
                                     url={this.props.match.url} />
                             </Grid.Column>
                         </Grid.Row>
@@ -241,9 +242,10 @@ ShoppingItemsPage.propTypes = {
 function mapStateToProps(state, ownProps) {
     let { shoppingitems, loading, isFormOpen, isEditClicked, singleShoppinglist, prevPage, nextPage } = state.shoppingitem
     let { searchResults } = state.search
+    let {user} = state.userprofile
 
     return {
-        loading, shoppingitems, isFormOpen, isEditClicked, singleShoppinglist, searchResults, prevPage, nextPage
+        loading, shoppingitems, isFormOpen, isEditClicked, singleShoppinglist, searchResults, prevPage, nextPage, user
     }
 }
 
