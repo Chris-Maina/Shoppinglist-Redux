@@ -63,10 +63,18 @@ header .header-content .header-content-inner p{
 }
 
 /*
-RegisterPage component
+RegisterPage/ Login page wrapper
 */
-body > div,
-body > div > div,
-body > div > div > div.login-form {
-  height: 100%;
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
 }
+/** Custom button style for plus icon */
+.plusIconStyle {
+  position: fixed;
+  z-index: 5;
+  right: 45px;
+  bottom: 30px;
+};
