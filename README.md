@@ -4,7 +4,8 @@
 ## Shoppinglist Redux Application
 
 ![Screenshot of Home page](/images/homePg.png)
-![Screenshot of Register page](/images/ft-register.png)
+
+![Screenshot of Register page](/images/ft-signup.png)
 
 ![Screenshot of Login page](/images/ft-login.png)
 
