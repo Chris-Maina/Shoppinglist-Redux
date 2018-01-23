@@ -50,7 +50,7 @@ class NavigationBar extends Component {
                 </Menu.Item>
                 <Dropdown item text='User' pointing='top right'>
                     <Dropdown.Menu>
-                        <Dropdown.Item icon='user circle outline' text="Profile" />
+                        <Dropdown.Item href="/profile/"icon='user circle outline' text="Profile" />
                         <Dropdown.Item onClick={this.onLogoutClick} icon='log out' text="Logout" />
                     </Dropdown.Menu>
                 </Dropdown>
