@@ -48,13 +48,11 @@ class LoginPage extends Component {
     render() {
         let { email, password } = this.state.user;
         return (
-            <div className='login-form'>
-            <ToastContainer />
-                <Grid
+            <div className="ui container ">
+                <ToastContainer />
+                <Grid className="wrapper"
                     textAlign='center'
-                    style={{ height: '100%' }}
-                    verticalAlign='middle'
-                >
+                    verticalAlign='middle' >
                     <GridColumn style={{ maxWidth: 500 }}>
                         <Header as='h2' textAlign='center'>
                             Sign into your Account
@@ -83,7 +81,7 @@ class LoginPage extends Component {
                                     placeholder='Password'>
 
                                 </CustFormInput>
-                                
+
                                 {this.props.loading ?
 
                                     <Loader active content='Loading' />

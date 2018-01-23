@@ -86,11 +86,11 @@ class RegisterPage extends Component {
         let user = this.state.user;
         let { username, email, password, cpassword } = user
         return (
-            <div className='login-form'>
+            <div className='ui container'>
                 <ToastContainer />
                 <Grid
+                    className="wrapper"
                     textAlign='center'
-                    style={{ height: '100%' }}
                     verticalAlign='middle'>
                     <GridColumn style={{ maxWidth: 500 }}>
                         <Header as='h2' textAlign='center'>
