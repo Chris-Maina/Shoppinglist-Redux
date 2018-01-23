@@ -4,7 +4,7 @@ import { Button } from 'semantic-ui-react';
 const CustButton = (props) =>{
     return(
         <Button 
-        style={props.style}
+        className={props.className}
         fluid={props.fluid} 
         size={props.size} 
         color={props.color}
