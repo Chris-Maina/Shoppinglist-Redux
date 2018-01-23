@@ -9,5 +9,6 @@ export default {
     singleShoppinglist: {},
     searchResults: {},
     nextPage: '',
-    prevPage: ''
+    prevPage: '',
+    user: {}
 }
