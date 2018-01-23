@@ -4,6 +4,7 @@ import login from './loginReducer';
 import shoppinglist from './shoppinglistReducer';
 import shoppingitem from './shoppingitemReducer';
 import search from './searchReducer';
+import userprofile from './userProfileReducer';
 
 
 const rootReducer = combineReducers({
@@ -11,7 +12,8 @@ const rootReducer = combineReducers({
     login,
     shoppinglist,
     shoppingitem,
-    search
+    search,
+    userprofile
 });
 
 export default rootReducer;
