@@ -5,6 +5,7 @@ import CustomLists from './CustLists'
 import { Grid, Loader, Card } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import * as shoppinglistActions from '../../actions/shoppinglistActions';
+import {getUserProfile} from '../../actions/userProfileActions'
 import { ToastContainer } from 'react-toastify';
 import PropTypes from 'prop-types';
 import ShoplistForm from './ShoppinglistForm'
@@ -19,6 +20,8 @@ class ShoppinglistPage extends Component {
     componentWillMount() {
         // dispatch get shoppinglist request action
         this.props.getShoppinglist();
+        // dispatch an action to get the loagged in user
+        this.props.getUserProfile()
 
     }
 
@@ -86,7 +89,7 @@ class ShoppinglistPage extends Component {
     }
     render() {
         let item;
-        if (!this.props.shoppinglists) {
+        if (!this.props.shoppinglists || !this.props.user) {
             return <Loader active content='Loading' />
         } else {
             item = this.props.shoppinglists;
@@ -123,6 +126,7 @@ class ShoppinglistPage extends Component {
                                 </Grid.Column>
                                 <Grid.Column>
                                     <NavigationBar
+                                        user={this.props.user}
                                         url={this.props.match.url} />
                                 </Grid.Column>
                             </Grid.Row>
@@ -222,9 +226,10 @@ ShoppinglistPage.propTypes = {
 function mapStateToProps(state, ownProps) {
     // destructure shoppinglist object
     let { loading, redirect, shoppinglists, isFormOpen, isEditClicked, nextPage, prevPage } = state.shoppinglist;
-    let { searchResults } = state.search
+    let { searchResults } = state.search;
+    let {user} = state.userprofile
     return {
-        loading, redirect, shoppinglists, isFormOpen, isEditClicked, searchResults, nextPage, prevPage
+        loading, redirect, shoppinglists, isFormOpen, isEditClicked, searchResults, nextPage, prevPage,user
     };
 }
-export default connect(mapStateToProps, { ...shoppinglistActions })(ShoppinglistPage);
+export default connect(mapStateToProps, { ...shoppinglistActions, getUserProfile })(ShoppinglistPage);
