@@ -66,6 +66,9 @@ NavigationBar.propTypes = {
     search: PropTypes.object
 }
 function mapStateToProps(state, ownProps){
-    return state.search
+    let { user } = state.userprofile
+    return {
+        user
+    }
 }
 export default connect(mapStateToProps, { ...searchActions })(NavigationBar);
