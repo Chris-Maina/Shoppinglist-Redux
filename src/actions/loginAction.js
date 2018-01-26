@@ -14,7 +14,7 @@ export function loginFail(error) {
     return { type: types.LOGIN_FAIL, error };
 }
 
-export function loginUser(user) {
+export function loginUser(user, callback) {
     return function (dispatch) {
         // dispatch login request
         dispatch(loginRequest());
@@ -29,6 +29,7 @@ export function loginUser(user) {
             window.localStorage.setItem('token', response.data.access_token);
             // dispatch a success action
             dispatch(loginSuccess(response));
+            callback();
         }).catch(error => {
             // dispatch a fail action
             dispatch(loginFail(error));

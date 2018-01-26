@@ -29,13 +29,12 @@ class LoginPage extends Component {
         evt.preventDefault();
 
         // method call to login a user
-        this.props.loginUser(this.state.user);
-        setTimeout(() => {
+        this.props.loginUser(this.state.user, () => {
             // Redirect on successful log in
             if (this.props.redirect) {
                 this.context.router.history.push('/shoppinglists/');
             }
-        }, 5000)
+        });
         // set states to empty
         this.setState({
             user: {
