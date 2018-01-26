@@ -66,7 +66,8 @@ class LoginPage extends Component {
                                     type='email'
                                     icon='mail'
                                     iconPosition='left'
-                                    placeholder='E-mail address'>
+                                    placeholder='E-mail address'
+                                    required={true}>
 
                                 </CustFormInput>
                                 <CustFormInput
@@ -77,7 +78,8 @@ class LoginPage extends Component {
                                     type='password'
                                     icon='lock'
                                     iconPosition='left'
-                                    placeholder='Password'>
+                                    placeholder='Password'
+                                    required={true}>
 
                                 </CustFormInput>
 

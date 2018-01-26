@@ -4,6 +4,7 @@ import {Form} from 'semantic-ui-react'
 const CustFormInput = (props) => {
     return(
     <Form.Input
+    required={props.required}
     onChange={props.onChange}
     name={props.name}
     value={props.value}

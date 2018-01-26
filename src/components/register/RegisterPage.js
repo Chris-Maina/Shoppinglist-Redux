@@ -106,7 +106,8 @@ class RegisterPage extends Component {
                                     type='text'
                                     icon='user'
                                     iconPosition='left'
-                                    placeholder='Username'>
+                                    placeholder='Username'
+                                    required={true}>
 
                                 </CustFormInput>
                                 <CustFormInput
@@ -117,7 +118,8 @@ class RegisterPage extends Component {
                                     type='email'
                                     icon='mail'
                                     iconPosition='left'
-                                    placeholder='E-mail address'>
+                                    placeholder='E-mail address'
+                                    required={true}>
 
                                 </CustFormInput>
                                 <CustFormInput
@@ -128,7 +130,8 @@ class RegisterPage extends Component {
                                     type='password'
                                     icon='lock'
                                     iconPosition='left'
-                                    placeholder='Password'>
+                                    placeholder='Password'
+                                    required={true}>
 
                                 </CustFormInput>
                                 <CustFormInput
@@ -139,7 +142,8 @@ class RegisterPage extends Component {
                                     type='password'
                                     icon='lock'
                                     iconPosition='left'
-                                    placeholder='Confirm Password'>
+                                    placeholder='Confirm Password'
+                                    required={true}>
                                 </CustFormInput>
 
                                 {this.props.loading ?
