@@ -136,7 +136,7 @@ export function editShoppinglistError() {
 }
 
 
-export function editShoppinglist(shoppinglist, callback) {
+export function editShoppinglist(shoppinglist) {
     return function (dispatch) {
         // dispath edit request action
         dispatch(editShoppinglistRequest());
