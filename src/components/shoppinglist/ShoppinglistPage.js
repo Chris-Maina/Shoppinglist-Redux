@@ -30,16 +30,16 @@ class ShoppinglistPage extends Component {
         if (this.state.shoppinglistId) {
             // If an id is present its an update request
             // method call to dispatch edit a shoppinglist
-            return this.props.editShoppinglist({ name: this.state.shoppinglistName, id: this.state.shoppinglistId }, () => {
-                this.props.getShoppinglist();
-            })
+            this.props.editShoppinglist({ name: this.state.shoppinglistName, id: this.state.shoppinglistId })
+            // method call to dispatch form close action
+            return this.props.formClose();
 
         }
         // Create request
         // method call to dispatch create a shoppinglist
-        return this.props.createShoppinglist(this.state.shoppinglistName, () => {
-            this.props.getShoppinglist();
-        });
+        this.props.createShoppinglist(this.state.shoppinglistName);
+        // method call to dispatch form close action
+        return this.props.formClose(); 
 
     }
     onPlusClick = evt => {
@@ -74,10 +74,7 @@ class ShoppinglistPage extends Component {
     }
     onDeleteClick = (oneshoppinglist) => {
         // method call to dispatch delete request
-        this.props.deleteShoppinglist(oneshoppinglist, () => {
-            // method call to get all shoppinglist
-            this.props.getShoppinglist();
-        });
+        this.props.deleteShoppinglist(oneshoppinglist);
         // close the confirm dialog
         this.setState({ open: false })
     }

@@ -54,10 +54,13 @@ class ShoppingItemsPage extends Component {
         evt.preventDefault();
         // Check if id is present in state. If true its a call to edit/update else create
         if (this.state.item.id) {
-            return this.props.editShoppingItem(this.state.item, this.props.match.params.id)
+            this.props.editShoppingItem(this.state.item, this.props.match.params.id)
+            // dispatch an action to close the form
+            return this.props.formClose();
         }
         // method call to dispatch create a shopping items
-        return this.props.createShoppingItem(this.state.item, this.props.match.params.id);
+        this.props.createShoppingItem(this.state.item, this.props.match.params.id);
+        return this.props.formClose();
     }
     onEditClick = (evt, item) => {
         evt.preventDefault();
